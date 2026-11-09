@@ -30,12 +30,6 @@ const C = {
 };
 
 const clamp = { extrapolateLeft: "clamp" as const, extrapolateRight: "clamp" as const };
-const fade = (f: number, length = 24) =>
-  interpolate(f, [0, length, 9999 - length, 9999], [0, 1, 1, 0], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
-  });
-
 const Label: React.FC<{ x: number; y: number; children: React.ReactNode; size?: number; color?: string; weight?: number; anchor?: "start" | "middle" | "end" }> = ({
   x, y, children, size = 24, color = C.cream, weight = 500, anchor = "start",
 }) => (
