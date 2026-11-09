@@ -360,3 +360,168 @@ Use the official documentation as the source of truth. Read the page relevant to
 - [Still images and frame inspection](https://www.remotion.dev/docs/stills)
 - [Render your video](https://www.remotion.dev/docs/render)
 - [Deterministic `random()`](https://www.remotion.dev/docs/random)
+
+
+---
+
+# Project Intake Wizard and Production Architecture
+
+This section extends the original production workflow. It is mandatory for every new video project. The workflow is intentionally separated into content, visual design, character design, and Remotion execution so that the agent does not mix story decisions with art direction or code.
+
+## Required order: choose the idea first
+
+The user asked that idea selection be step one. Follow this order exactly unless the user explicitly asks to skip a stage.
+
+### Stage 1 — Choose the content idea
+
+Read and use:
+
+- references/CONTENT_IDEA_CATALOG.md
+
+Offer content pillars, then 5–10 concrete topic ideas in the selected pillar. Example categories:
+
+1. History and historical events.
+2. How a thing, object or infrastructure is made.
+3. Inventions and discoveries (for example, how the light bulb evolved).
+4. Hidden infrastructure and engineering systems.
+5. Everyday objects and how they work.
+6. Science, nature and the planet.
+7. Civilizations, architecture and engineering.
+8. War, strategy and military history.
+
+For each idea, give the working title, central question, visual potential, likely story arc and factual research risks. Ask the user to choose one. Do not write the final script, design the character or implement a scene before topic approval.
+
+### Stage 2 — Select platform and desired duration
+
+Read:
+
+- references/PLATFORM_PRESETS.md
+
+Ask where the content will be published. Offer the matching destination template and duration choices. The user must select or confirm the duration; the agent must never silently assume it.
+
+Examples:
+
+- YouTube long-form: 6 / 8 / 10 / 12 / 15 / 20 / 30 minutes or custom.
+- YouTube Shorts: 30 / 45 / 60 / 90 / 120 / 180 seconds.
+- Instagram Reels: 15 / 30 / 45 / 60 / 90 / 180 seconds.
+- Facebook Reels: 30 / 60 / 90 / 180 seconds, 5 minutes or custom.
+- Instagram Feed: portrait 4:5 or square 1:1; ask which one if not clear.
+
+These are practical creative presets, not guaranteed platform maximums. Re-check official publishing rules before upload.
+
+### Stage 3 — Set aspect ratio and auto-resolution
+
+Once destination is known, preselect its standard aspect ratio and resolution from PLATFORM_PRESETS.md. Tell the user what will be used and allow an override.
+
+Default mappings:
+- Vertical 9:16 => 1080 × 1920.
+- Horizontal 16:9 => 1920 × 1080.
+- Portrait feed 4:5 => 1080 × 1350.
+- Square 1:1 => 1080 × 1080.
+
+Set social FPS to 30 unless the user chooses otherwise. Calculate durationInFrames from duration × FPS. Keep metadata in one configuration object. If a composition must be selectable by props, study the installed Remotion version and use Composition defaultProps / calculateMetadata() where appropriate. Do not just change the canvas size while leaving scene coordinates and typography hardcoded for the old aspect ratio.
+
+For multiple destinations, make deliberate layout variants. A vertical version is not a stretched or center-cropped horizontal version.
+
+### Stage 4 — Select visual style / model
+
+Read:
+
+- references/VISUAL_STYLE_LIBRARY.md
+
+Show the user the available style IDs, explain what each looks like, and request a selection or custom reference. The style library is about art direction, not the AI provider/tool model.
+
+Do not force a stickman style because an older project used it. The current project must follow the newly selected style.
+
+Create a project-level STYLE_GUIDE.md after approval. Include palette, typography, shape language, line weight, materials, camera, lighting, background detail, movement language, consistency rules and forbidden deviations. Produce a style test frame and a short motion test before building many scenes.
+
+### Stage 5 — Design characters and objects separately
+
+If the style needs recurring characters, read:
+
+- references/CHARACTER_MODEL_GUIDE.md
+
+Character creation is its own deliverable, not part of the scriptwriting step. Create a character brief and model sheet (front, three-quarter, side, back, expressions, poses, colors, props, proportions), then wait for approval. Keep a character registry with stable IDs. The script must refer to IDs; it must not redefine character appearance in every scene.
+
+For non-character documentaries, create object model sheets for important machines, buildings, mechanisms and recurring places. An engineering explainer needs consistent pumps, dikes, gates, buildings and diagrams even if it has no characters.
+
+Do not use the character-model guide to invent historical facts or to write content. Do not use the content script as the canonical character design.
+
+### Stage 6 — Research, then script
+
+Create a research brief using credible sources. Separate established facts, contested claims, approximations and artistic simplifications. Cite important claims. Then write the full narration in the selected language and tone.
+
+Do not use an illustrative example or a generated image as a factual source. For complex invention histories, avoid the “single inventor” simplification unless research supports it.
+
+### Stage 7 — Break the narration into 1–5 second beats
+
+Read:
+
+- templates/SCENE_BREAKDOWN_TEMPLATE.md
+
+First define macro scenes / chapters. Then break each macro scene into short timecoded beats, typically 1–5 seconds. Example:
+- 00:00–00:05 — exact narration line, visual action, text animation and sound cue.
+- 00:05–00:10 — next narration line, next action and transition.
+- 00:10–00:15 — next beat.
+
+For every beat, provide:
+- Global timecode in/out.
+- Global frame in/out.
+- Exact voice-over words.
+- Approximate word count and target delivery time.
+- On-screen text (short phrase, not a copy of the whole narration).
+- Visual/action.
+- Primary motion graphics.
+- Typography animation.
+- Secondary movement.
+- Camera movement.
+- Music/ambience/SFX cues.
+- Asset IDs.
+- Continuity and QA notes.
+
+Each narration beat should be recordable as an individual audio clip. Use stable filenames such as VO_001_000-005.wav. A 5-second beat is a planning unit, not a command to rush the voice actor. If a line does not fit naturally, rewrite it or extend the beat and recalculate subsequent timecodes.
+
+Do not create a separate React component for every 5-second beat by default. Beats can live inside a larger macro-scene component and use frame-based animation.
+
+### Stage 8 — Storyboard and motion plan
+
+Create a shot list or storyboard matching the timecoded beats. Identify where every asset appears, how it moves, where the camera goes, how text enters, and what the viewer should notice. Approve the storyboard before implementation.
+
+### Stage 9 — Remotion implementation and QA
+
+Use the original step-by-step workflow in this skill. Implement only approved scenes, use frame-driven and deterministic animation, preserve the project metadata unless explicitly changed, and follow the full QA gate.
+
+## New-project files
+
+Use these separate files rather than placing everything in one enormous prompt:
+
+- references/CONTENT_IDEA_CATALOG.md — subject ideas and research framing.
+- references/PLATFORM_PRESETS.md — destinations, duration choices, resolution and export presets.
+- references/VISUAL_STYLE_LIBRARY.md — art-direction/model choices.
+- references/CHARACTER_MODEL_GUIDE.md — character and object model sheets.
+- templates/PRODUCTION_BRIEF_TEMPLATE.md — approved production configuration.
+- templates/SCENE_BREAKDOWN_TEMPLATE.md — timecoded narration and visual beat handoff.
+- project/research/RESEARCH_BRIEF.md — factual research and sources.
+- project/script/VOICEOVER_SCRIPT.md — approved continuous narration.
+- project/script/SCENE_BREAKDOWN.md — timecoded 1–5 second beats.
+- project/style/STYLE_GUIDE.md — approved art direction.
+- project/characters/CHARACTER_REGISTRY.md — stable character IDs.
+- project/assets/ASSET_REGISTRY.md — asset names, sources, licenses and usage.
+- project/qa/SCENE_QA.md — rendered frames, review notes, test status.
+
+Do not put style/character instructions into the voice-over document. Do not put narration/factual claims in the model sheet. Keep all documents linked through stable scene, beat, character and asset IDs.
+
+## Additional advanced requirements
+
+- **Research traceability:** important factual claims map to source references.
+- **Narration-first timing:** voice recording duration is authoritative; update animation timing to audio, not the other way around.
+- **Asset licensing:** record origin, creator, license, attribution requirement and usage restrictions for every external asset.
+- **Caption deliverable:** prepare subtitles/captions in addition to burned-in graphics when the platform or workflow needs them.
+- **Multi-platform composition:** build safe areas and responsive layouts for each aspect ratio.
+- **Versioning:** version the production brief, style guide, character sheets and approved script. Do not overwrite an approved design silently.
+- **Approval gates:** topic → format/duration → style → model sheets → research/script → timecoded breakdown → storyboard → scene implementation → render QA.
+- **Production status:** report code committed, lint/typecheck, still renders, Studio playback, final MP4 render and full playback as separate statuses.
+
+## Agent behavior
+
+The agent should not dump every choice at once. Ask one short question, record the answer, then proceed to the next stage. At each approval gate, show the user the decision in a compact summary and ask for approval before expensive downstream work. If the user asks to “surprise me” or “choose for me”, provide a recommendation and clearly mark it as an assumption for confirmation.
