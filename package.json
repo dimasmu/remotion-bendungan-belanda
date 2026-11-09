@@ -1,8 +1,11 @@
 {
-  "name": "pemula",
+  "name": "template-remotion",
   "version": "1.0.0",
-  "description": "My Remotion video",
-  "repository": {},
+  "description": "Reusable Remotion boilerplate for documentary and motion-graphics video production",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dimasmu/template-remotion.git"
+  },
   "license": "UNLICENSED",
   "engines": {
     "node": "^20.19.0 || ^22.13.0 || >=24"
@@ -25,8 +28,9 @@
   "scripts": {
     "dev": "remotion studio",
     "build": "remotion bundle",
-    "upgrade": "remotion upgrade",
-    "lint": "eslint src && tsc"
+    "render": "remotion render BoilerplateVideo out/video.mp4",
+    "lint": "eslint src && tsc",
+    "upgrade": "remotion upgrade"
   },
   "allowScripts": {
     "esbuild": false
