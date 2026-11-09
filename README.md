@@ -1,53 +1,94 @@
-# Why Doesn't the Netherlands Sink?
+# Template Remotion
 
-A 112-second animated documentary built with Remotion.
+Reusable Remotion boilerplate for documentary, explainer and motion-graphics video projects.
 
-## Video specification
+This repository intentionally contains no finished documentary or topic-specific footage. Start every video through the production workflow in `AGENTS.md` and `.agents/skills/remotion-documentary/`.
 
-- Composition: `NetherlandsDocumentary`
-- Resolution: 1920 × 1080 (16:9)
-- Frame rate: 30 fps
-- Duration: 3,360 frames / 112 seconds
-- Language: English
-- Visual direction: cinematic educational documentary, stylized vector illustrations, dark navy / teal / warm sand palette
-- Assets: all visuals are drawn in React SVG; no external image or audio assets are required.
+## What's included
 
-## Story structure
+- Remotion starter composition (1920×1080, 30 fps, 10-second placeholder).
+- TypeScript, ESLint and Prettier configuration.
+- Documentary production skill and references.
+- Platform presets for YouTube, Shorts, Instagram and Facebook.
+- Content idea catalog, visual-style library and character/object model guide.
+- Image-generation prompt workflow and reference/production asset folder conventions.
+- Production brief and timecoded scene-breakdown templates.
 
-| Scene | Time | Chapter | Visual focus |
-| --- | ---: | --- | --- |
-| 01 | 00:00–00:12 | A country shaped by water | Amsterdam-inspired canal skyline, title reveal |
-| 02 | 00:12–00:25 | A landscape below sea level | Soil cross-section, sea-level line, low-lying land |
-| 03 | 00:25–00:43 | What holds the cities up? | Historic building and deep wooden pile foundations |
-| 04 | 00:43–01:00 | Turning water into farmland | Polder, dike, drainage canal and pumping station |
-| 05 | 01:00–01:18 | A system that never stops working | Dikes, pumping stations and storm barriers |
-| 06 | 01:18–01:36 | The water challenge is changing | Sea-level rise, extreme rain, drought and subsidence |
-| 07 | 01:36–01:52 | A living relationship with water | Closing engineering montage and title |
+## Quick start
 
-## Run locally
+Requirements: Node.js version supported by the `engines` field in `package.json`.
 
 ```bash
 npm install
 npm run dev
 ```
 
-Open Remotion Studio and select `NetherlandsDocumentary`.
+Open Remotion Studio and select `BoilerplateVideo`.
 
-Render:
-
-```bash
-npx remotion render NetherlandsDocumentary out/netherlands-documentary.mp4
-```
-
-Type-check and lint:
+## Build and render
 
 ```bash
 npm run lint
+npm run build
+npm run render
 ```
 
-## Production notes
+The default render command writes `out/video.mp4`. Change the composition ID and output path when starting a new production.
 
-- This is a complete visual-first animatic/documentary foundation, not a final fact-checked broadcast master.
-- All scenes use procedural SVG artwork and frame-driven motion, so the project renders without downloading image assets.
-- Voice-over and music are intentionally not embedded. Add licensed narration, music and sound design as separate audio assets after picture approval.
-- Before publishing, fact-check all historical and engineering statements against authoritative Dutch water-management sources (for example Rijkswaterstaat, Deltares and the Dutch Water Authorities).
+## Start a new video
+
+1. Open this repository in your coding agent from the repository root.
+2. Invoke `@remotion-documentary`.
+3. Follow `AGENTS.md` and the skill's intake workflow: choose content idea, platform/duration, ratio/resolution, visual style, character/object references, research/script, timecoded narration, storyboard, implementation and QA.
+4. Store project-specific documents in `project/`.
+5. Store approved render-ready assets in `public/assets/`.
+6. Work on a separate project branch; do not commit topic-specific work to the reusable boilerplate branch.
+
+## Recommended project structure
+
+```text
+project/
+  production/
+  research/
+  script/
+  style/
+  characters/
+  objects/
+  assets/
+    references/
+    generated/
+  qa/
+
+public/
+  assets/
+    characters/
+    objects/
+    backgrounds/
+    illustrations/
+    images/
+    audio/
+    fonts/
+    video/
+
+src/
+  components/
+  compositions/
+  scenes/
+  data/
+  styles/
+```
+
+Reference images/model sheets belong in `project/assets/references/`. Only approved images actually used by the video belong in `public/assets/`.
+
+## Production skill
+
+Start here:
+- `.agents/skills/remotion-documentary/SKILL.md`
+- `.agents/skills/remotion-documentary/references/`
+- `.agents/skills/remotion-documentary/templates/`
+
+## Notes
+
+- The starter composition is a placeholder, not a finished video.
+- Do not assume a scene passed QA until it has been type-checked, visually inspected in Studio, and rendered.
+- Keep installed Remotion packages version-aligned.
