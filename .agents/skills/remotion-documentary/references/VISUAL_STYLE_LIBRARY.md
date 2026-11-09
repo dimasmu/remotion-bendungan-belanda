@@ -88,3 +88,17 @@ Detail level: [description]
 Show one representative environment and one representative subject.
 Keep the selected style consistent. No unrequested title, logo or watermark.
 ~~~
+
+
+## Mandatory image-generation prompt stage
+
+After the user selects and approves a style, read \`references/IMAGE_GENERATION_WORKFLOW.md\` and prepare a Visual Style Prompt Pack before implementing scenes.
+
+The pack must include:
+- One ready-to-copy style-board prompt.
+- One style-test-frame prompt grounded in the approved topic.
+- A short avoid/negative list.
+- Recommended output ratio and size.
+- Exact save path and filenames.
+
+The first image is a reusable project art-direction reference, not the final scene. Ask the user to approve the style board and test frame. Do not make character designs yet if the style is not approved.
