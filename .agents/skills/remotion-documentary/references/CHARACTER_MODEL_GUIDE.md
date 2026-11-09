@@ -114,3 +114,21 @@ No extra characters, scene backgrounds, captions, logos or watermarks.
 ## Approval output
 
 Before use in Remotion, provide the Character ID/version, approved model sheet location, appearance checklist, allowed variations and historical uncertainties. Do not mark a design locked until the user approves it.
+
+
+## Mandatory character image-generation stage
+
+After the user approves the character brief, read \`references/IMAGE_GENERATION_WORKFLOW.md\` and provide a Character Model Prompt Pack:
+- Character turnaround prompt (front, three-quarter, side and back).
+- Expression sheet prompt.
+- Action pose sheet prompt.
+- Optional separate transparent production-cutout prompt.
+- Exact output paths and filename conventions.
+
+The canonical character reference sheet must be stored at:
+\`project/assets/references/characters/[CHAR-ID]/v[VERSION]/[CHAR-ID]_model-sheet.png\`
+
+Supporting references go beside it. Production-ready cutouts/sprite frames used by Remotion go in:
+\`public/assets/characters/[CHAR-ID]/\`
+
+Do not mix reference/model-sheet images with production-ready assets. Read IMAGE_GENERATION_WORKFLOW.md for approval gates and registry rules.
