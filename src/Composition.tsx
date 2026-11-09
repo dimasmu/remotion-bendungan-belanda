@@ -90,23 +90,144 @@ const Skyline = () => (
 const Opening: React.FC = () => {
   const f = useCurrentFrame();
   const { fps } = useVideoConfig();
-  const zoom = interpolate(f, [0, 360], [1.12, 1], clamp);
-  const rise = spring({ frame: f - 45, fps, config: { damping: 18 } });
+  const titleIn = spring({ frame: f - 10, fps, config: { damping: 20, stiffness: 75 } });
+  const camera = interpolate(f, [0, 360], [1.035, 1.085], clamp);
+  const boatX = interpolate(f, [0, 360], [-260, 2050], clamp);
+  const sunPulse = 0.98 + Math.sin(f / 46) * 0.025;
+
+  const houses = [
+    { x: -18, w: 132, h: 220, color: "#A85F50", roof: 0 },
+    { x: 122, w: 124, h: 258, color: "#C18B65", roof: 1 },
+    { x: 254, w: 136, h: 198, color: "#B76D59", roof: 2 },
+    { x: 398, w: 124, h: 245, color: "#A85F50", roof: 3 },
+    { x: 530, w: 134, h: 212, color: "#C18B65", roof: 0 },
+    { x: 672, w: 124, h: 268, color: "#A85F50", roof: 1 },
+    { x: 804, w: 138, h: 204, color: "#B76D59", roof: 2 },
+    { x: 950, w: 126, h: 248, color: "#C18B65", roof: 3 },
+    { x: 1084, w: 136, h: 218, color: "#A85F50", roof: 0 },
+    { x: 1228, w: 124, h: 262, color: "#B76D59", roof: 1 },
+    { x: 1360, w: 136, h: 202, color: "#C18B65", roof: 2 },
+    { x: 1504, w: 126, h: 244, color: "#A85F50", roof: 3 },
+    { x: 1638, w: 136, h: 216, color: "#B76D59", roof: 0 },
+    { x: 1782, w: 150, h: 258, color: "#C18B65", roof: 1 },
+  ];
+
   return <SceneFrame chapter="A country shaped by water" number="01">
-    <AbsoluteFill style={{ background: "linear-gradient(180deg,#102F43 0%,#31596A 55%,#D5A779 100%)" }} />
-    <svg viewBox="0 0 1920 1080" style={{ position: "absolute", width: "100%", height: "100%", transform: `scale(${zoom})` }}>
-      <circle cx="1510" cy="210" r="90" fill={C.gold} opacity=".8" />
-      <path d="M0 500 Q500 420 950 490 T1920 450 V1080 H0Z" fill="#24485A" />
-      <Skyline />
-      <Water y={770} shift={f * 1.2} />
-      <path d="M0 770 Q450 740 960 770 T1920 770" fill="none" stroke={C.cream} strokeWidth="5" opacity=".7" />
+    <AbsoluteFill style={{ background: "linear-gradient(180deg,#102B3D 0%,#1D4355 48%,#52717A 100%)" }} />
+    <svg viewBox="0 0 1920 1080" style={{ position: "absolute", width: "100%", height: "100%", transform: `scale(${camera})` }}>
+      <defs>
+        <linearGradient id="openingSky" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#0D2638" />
+          <stop offset="68%" stopColor="#31576A" />
+          <stop offset="100%" stopColor="#C18B65" />
+        </linearGradient>
+        <linearGradient id="canalWater" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#14586B" />
+          <stop offset="100%" stopColor="#082D40" />
+        </linearGradient>
+        <linearGradient id="facadeShade" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stopColor="#071B2B" stopOpacity=".2" />
+          <stop offset="45%" stopColor="#FFFFFF" stopOpacity=".08" />
+          <stop offset="100%" stopColor="#071B2B" stopOpacity=".24" />
+        </linearGradient>
+      </defs>
+
+      <rect width="1920" height="1080" fill="url(#openingSky)" />
+      <circle cx="1570" cy="210" r={120 * sunPulse} fill={C.gold} opacity=".9" />
+      <circle cx="1570" cy="210" r="150" fill="none" stroke="#E9D4A7" strokeWidth="2" opacity=".2" />
+
+      <g opacity=".24" fill="#C2D0CC">
+        <path d={`M${-180 + (f * 0.45) % 2200} 245 q100 -45 200 0 q90 -35 170 0 q-90 24 -180 10 q-100 28 -190 -10Z`} />
+        <path d={`M${550 + (f * 0.28) % 1900} 330 q90 -35 180 0 q100 -40 190 0 q-80 25 -180 10 q-100 25 -190 -10Z`} />
+      </g>
+
+      <path d="M0 560 Q360 500 720 550 T1440 540 T1920 530 V760 H0Z" fill="#183D4E" opacity=".55" />
+      <path d="M0 665 Q340 640 660 660 T1320 650 T1920 660 V770 H0Z" fill="#2A5360" opacity=".45" />
+
+      {houses.map((house, index) => {
+        const base = 755;
+        const top = base - house.h;
+        const w = house.w;
+        const roofShape = house.roof === 0
+          ? `M0 ${top + 38} L0 ${top + 18} L${w / 2 - 14} ${top + 18} L${w / 2 - 14} ${top} L${w / 2 + 14} ${top} L${w / 2 + 14} ${top + 18} L${w} ${top + 18} L${w} ${base} L0 ${base}Z`
+          : house.roof === 1
+          ? `M0 ${top + 42} Q0 ${top + 5} ${w / 2} ${top + 5} Q${w} ${top + 5} ${w} ${top + 42} L${w} ${base} L0 ${base}Z`
+          : house.roof === 2
+          ? `M0 ${top + 48} L${w * .22} ${top + 48} L${w * .22} ${top + 25} L${w * .38} ${top + 25} L${w * .5} ${top} L${w * .62} ${top + 25} L${w * .78} ${top + 25} L${w * .78} ${top + 48} L${w} ${top + 48} L${w} ${base} L0 ${base}Z`
+          : `M0 ${top + 30} L${w * .18} ${top + 30} L${w * .18} ${top + 14} L${w * .82} ${top + 14} L${w * .82} ${top + 30} L${w} ${top + 30} L${w} ${base} L0 ${base}Z`;
+        const rows = Math.floor((house.h - 90) / 48);
+        return <g key={index} transform={`translate(${house.x} 0)`}>
+          <path d={roofShape} fill={house.color} stroke="#F0E4CE" strokeWidth="4" strokeLinejoin="round" />
+          <path d={`M8 ${top + 55} H${w - 8} V${base - 5} H8Z`} fill="url(#facadeShade)" />
+          <path d={`M10 ${base - 13} H${w - 10}`} stroke="#E8D7B7" strokeWidth="3" opacity=".7" />
+          <path d={`M14 ${top + 58} V${base - 8} M${w - 14} ${top + 58} V${base - 8}`} stroke="#F0D8B4" strokeWidth="3" opacity=".38" />
+          {Array.from({ length: Math.max(2, rows) }, (_, row) =>
+            [0, 1].map((column) => {
+              const wx = 20 + column * (w - 60);
+              const wy = top + 78 + row * 48;
+              const glow = .76 + Math.sin(f / 20 + index * 1.7 + row * .8 + column) * .09;
+              return <g key={`${row}-${column}`} opacity={glow}>
+                <rect x={wx} y={wy} width="23" height="31" rx="2" fill="#102638" stroke="#E7CF9D" strokeWidth="2" />
+                <path d={`M${wx + 11.5} ${wy + 2} V${wy + 29} M${wx + 2} ${wy + 15.5} H${wx + 21}`} stroke="#D6B77D" strokeWidth="1.5" opacity=".75" />
+                <path d={`M${wx + 4} ${wy + 4} H${wx + 9} V${wy + 12} H${wx + 4}Z`} fill="#E8C98F" opacity=".23" />
+              </g>;
+            })
+          )}
+          <rect x={w / 2 - 15} y={base - 65} width="30" height="65" fill="#172F3D" stroke="#E7CF9D" strokeWidth="2" />
+          <circle cx={w / 2 + 7} cy={base - 34} r="3" fill={C.gold} />
+          {house.roof === 2 && <path d={`M${w / 2 - 15} ${top + 4} L${w / 2} ${top - 17} L${w / 2 + 15} ${top + 4}`} fill="#D5B58D" stroke="#F0E4CE" strokeWidth="2" />}
+          <path d={`M${w / 2 - 8} ${top - 1} H${w / 2 + 8} V${top - 20} H${w / 2 - 8}Z`} fill="#E8D8BC" />
+          <path d={`M0 ${base} H${w}`} stroke="#F0E4CE" strokeWidth="5" />
+        </g>;
+      })}
+
+      <path d="M0 756 Q320 746 640 756 T1280 752 T1920 750" fill="none" stroke="#E8BD72" strokeWidth="9" />
+      <path d="M0 774 H1920" stroke="#7C5E4B" strokeWidth="16" />
+      <path d="M0 787 H1920" stroke="#D8BD94" strokeWidth="5" />
+
+      <rect x="0" y="802" width="1920" height="278" fill="url(#canalWater)" />
+      <path d="M0 810 Q340 790 680 810 T1360 808 T1920 810" stroke="#D9C9A6" strokeWidth="6" fill="none" opacity=".8" />
+      {Array.from({ length: 13 }, (_, i) => {
+        const x = ((i * 175 + f * (i % 2 ? 1.1 : -.7)) % 2200 + 2200) % 2200 - 140;
+        const y = 865 + (i % 4) * 40;
+        return <g key={i} opacity={.18 + (i % 3) * .06}>
+          <path d={`M${x} ${y} q55 -12 110 0 t110 0`} stroke="#9BCBC9" strokeWidth="3" fill="none" />
+          <path d={`M${x + 14} ${y + 11} q35 -5 70 0`} stroke="#D6D5C5" strokeWidth="2" fill="none" />
+        </g>;
+      })}
+
+      <g transform={`translate(${boatX} 0)`}>
+        <path d="M0 858 L190 858 L163 895 L28 895Z" fill="#6D4436" stroke="#E8D7B7" strokeWidth="4" />
+        <path d="M54 858 V824 H132 V858" fill="#D0B38A" stroke="#E8D7B7" strokeWidth="4" />
+        <rect x="68" y="834" width="22" height="16" fill="#183449" />
+        <rect x="98" y="834" width="22" height="16" fill="#183449" />
+        <path d="M18 900 Q95 912 175 900" stroke="#8ED0CF" strokeWidth="5" fill="none" opacity=".75" />
+      </g>
+
+      <g transform="translate(1460 0)" opacity=".8">
+        <path d="M0 808 H280" stroke="#E0C59A" strokeWidth="8" />
+        <path d="M38 808 Q140 720 242 808" stroke="#E0C59A" strokeWidth="10" fill="none" />
+        <path d="M75 808 Q140 755 205 808" stroke="#6B5547" strokeWidth="7" fill="none" />
+      </g>
+      <path d="M0 1015 Q480 995 960 1015 T1920 1015" stroke="#71B4B8" strokeWidth="3" fill="none" opacity=".2" />
     </svg>
-    <div style={{ position: "absolute", left: 112, top: 150, opacity: rise, transform: `translateY(${(1 - rise) * 35}px)` }}>
-      <Eyebrow>Engineering a nation</Eyebrow>
-      <Heading size={92}>WHY DOESN’T<br />THE NETHERLANDS<br />SINK?</Heading>
-      <div style={{ color: C.cream, fontSize: 27, marginTop: 28, letterSpacing: 2 }}>THE COUNTRY THAT LEARNED TO LIVE WITH WATER</div>
+
+    <div style={{ position: "absolute", left: 110, top: 128, width: 1070, opacity: titleIn, transform: `translateY(${(1 - titleIn) * 32}px)` }}>
+      <div style={{ color: C.gold, fontSize: 21, fontWeight: 800, letterSpacing: 6, textTransform: "uppercase", marginBottom: 22 }}>
+        Engineering a nation
+      </div>
+      <div style={{ color: C.white, fontSize: 91, fontWeight: 900, lineHeight: .96, letterSpacing: -3.5, textShadow: "0 5px 22px rgba(0,0,0,.28)" }}>
+        <span style={{ display: "block", whiteSpace: "nowrap" }}>WHY DOESN’T THE</span>
+        <span style={{ display: "block", whiteSpace: "nowrap" }}>NETHERLANDS</span>
+        <span style={{ display: "block", whiteSpace: "nowrap", color: "#F2D8A7" }}>SINK?</span>
+      </div>
+      <div style={{ color: "#F2E8D6", fontSize: 23, fontWeight: 600, letterSpacing: 2.4, marginTop: 22, textShadow: "0 3px 12px rgba(0,0,0,.5)" }}>
+        THE COUNTRY THAT LEARNED TO LIVE WITH WATER
+      </div>
     </div>
-    <div style={{ position: "absolute", right: 115, bottom: 145, color: C.white, fontSize: 18, letterSpacing: 3 }}>NORTH SEA · WESTERN EUROPE</div>
+    <div style={{ position: "absolute", right: 118, bottom: 143, color: C.white, fontSize: 17, fontWeight: 700, letterSpacing: 3, textShadow: "0 2px 12px rgba(0,0,0,.65)" }}>
+      NORTH SEA · WESTERN EUROPE
+    </div>
   </SceneFrame>;
 };
 
