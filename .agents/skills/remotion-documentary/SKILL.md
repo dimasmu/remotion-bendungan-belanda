@@ -525,3 +525,22 @@ Do not put style/character instructions into the voice-over document. Do not put
 ## Agent behavior
 
 The agent should not dump every choice at once. Ask one short question, record the answer, then proceed to the next stage. At each approval gate, show the user the decision in a compact summary and ask for approval before expensive downstream work. If the user asks to “surprise me” or “choose for me”, provide a recommendation and clearly mark it as an assumption for confirmation.
+
+
+---
+
+# Image Generation Prompt and Reference Asset Workflow
+
+This is mandatory after style selection and character/object approval. Read \`references/IMAGE_GENERATION_WORKFLOW.md\`.
+
+- Give the user ready-to-copy image prompts; do not silently generate images unless the user explicitly requests image generation.
+- Generate a Style Board Prompt and Style Test Frame Prompt after style approval.
+- Generate a Character Turnaround, Expression Sheet and Action Pose prompt after the character brief is approved.
+- Keep style, character and object reference images separate from Remotion render assets.
+- Canonical character model sheet path: \`project/assets/references/characters/[CHAR-ID]/v[VERSION]/\`.
+- Approved production cutouts and sprite frames: \`public/assets/characters/[CHAR-ID]/\`.
+- Approved object reference images: \`project/assets/references/objects/[OBJ-ID]/v[VERSION]/\`.
+- Render-ready object assets: \`public/assets/objects/[OBJ-ID]/\`.
+- Keep the full prompts, versions, approval status and asset registry in the project.
+
+Do not code a recurring character before its model sheet is approved. Do not use an unapproved prompt-generation experiment in the final composition.
