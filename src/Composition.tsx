@@ -231,179 +231,266 @@ const Opening: React.FC = () => {
   </SceneFrame>;
 };
 
+export const SCENE_02_NARRATION =
+  "The Netherlands is not one flat bowl beneath the sea. Along the coast, dunes and dikes form a first line of defence. Behind them, much of the low-lying land sits below the level of the open sea. Canals, barriers and carefully managed water levels help keep that landscape safe.";
+
 const Geography: React.FC = () => {
   const f = useCurrentFrame();
-  const reveal = interpolate(f, [18, 112], [0, 1], clamp);
-  const waterLevel = interpolate(f, [0, 110, 240, 390], [0, 1, 0.82, 1], clamp);
-  const bracket = interpolate(f, [75, 150], [0, 1], clamp);
-  const cardIn = spring({ frame: f - 28, fps: 30, config: { damping: 19, stiffness: 80 } });
-  const drift = (f * 1.1) % 220;
-  const particles = Array.from({ length: 22 }, (_, i) => ({
-    x: (i * 97 + f * (i % 2 ? 0.32 : -0.22) + 2200) % 1920,
-    y: 730 + (i * 59) % 300,
-    r: 2 + (i % 3),
+  const { fps } = useVideoConfig();
+
+  const titleIn = spring({ frame: f - 5, fps, config: { damping: 18, stiffness: 78 } });
+  const lineOne = spring({ frame: f - 12, fps, config: { damping: 17, stiffness: 85 } });
+  const lineTwo = spring({ frame: f - 27, fps, config: { damping: 17, stiffness: 85 } });
+  const diagramIn = interpolate(f, [30, 92], [0, 1], clamp);
+  const groundReveal = interpolate(f, [65, 185], [0, 1], clamp);
+  const seaLine = interpolate(f, [35, 135], [0, 1], clamp);
+  const measureIn = spring({ frame: f - 190, fps, config: { damping: 16, stiffness: 85 } });
+  const landCallout = spring({ frame: f - 245, fps, config: { damping: 18, stiffness: 75 } });
+  const waterDrift = (f * 1.3) % 260;
+  const currentDrift = (f * 0.8) % 140;
+
+  const chapterBeat = f < 112
+    ? {
+        index: "01",
+        label: "THE REFERENCE",
+        title: "Start with sea level.",
+        copy: "The open sea gives us a fixed line to compare the land against.",
+        start: 0,
+      }
+    : f < 245
+    ? {
+        index: "02",
+        label: "THE LOWLAND",
+        title: "The ground sits lower.",
+        copy: "Across wide areas, the land lies below that sea-level line.",
+        start: 112,
+      }
+    : {
+        index: "03",
+        label: "THE DEFENCE",
+        title: "The coast is managed.",
+        copy: "Dunes, dikes and controlled water levels help protect the lowlands.",
+        start: 245,
+      };
+  const beatIn = spring({ frame: f - chapterBeat.start, fps, config: { damping: 18, stiffness: 90 } });
+
+  const waterLines = Array.from({ length: 8 }, (_, i) => ({
+    x: ((i * 91 + waterDrift + 520) % 520) - 80,
+    y: 665 + (i % 4) * 45,
+    width: 58 + (i % 3) * 23,
+  }));
+
+  const soilMarks = Array.from({ length: 22 }, (_, i) => ({
+    x: 610 + i * 57,
+    y: 773 + (i % 4) * 26,
+    width: 23 + (i % 3) * 12,
   }));
 
   return <SceneFrame chapter="A landscape below sea level" number="02">
-    <AbsoluteFill style={{ background: "linear-gradient(180deg,#0B2232 0%,#102E40 38%,#16394A 100%)" }} />
+    <AbsoluteFill style={{ background: "linear-gradient(180deg,#0A2030 0%,#102D3E 52%,#0B2637 100%)" }} />
+
+    {/* Subtle technical grid gives the scene a designed, documentary graphic language. */}
     <svg viewBox="0 0 1920 1080" style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }}>
       <defs>
-        <linearGradient id="geoSea" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#23798A" />
-          <stop offset="100%" stopColor="#0B465A" />
+        <linearGradient id="geoOceanFill" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#267C8B" />
+          <stop offset="100%" stopColor="#0B4358" />
         </linearGradient>
-        <linearGradient id="geoClay" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#C29A70" />
-          <stop offset="100%" stopColor="#8A654F" />
+        <linearGradient id="geoLandTop" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#E0C99F" />
+          <stop offset="100%" stopColor="#B89A71" />
         </linearGradient>
-        <linearGradient id="geoPeat" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stopColor="#49392F" />
-          <stop offset="50%" stopColor="#60483A" />
-          <stop offset="100%" stopColor="#3D302A" />
+        <linearGradient id="geoClayLayer" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#B98A62" />
+          <stop offset="100%" stopColor="#8B634B" />
         </linearGradient>
-        <clipPath id="geoGroundReveal">
-          <rect x="0" y="485" width={1920 * reveal} height="595" />
+        <linearGradient id="geoPeatLayer" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stopColor="#40332D" />
+          <stop offset="50%" stopColor="#5A4337" />
+          <stop offset="100%" stopColor="#392E2A" />
+        </linearGradient>
+        <clipPath id="geoLandReveal">
+          <rect x="405" y="0" width={1515 * groundReveal} height="1080" />
         </clipPath>
-        <clipPath id="geoSeaClip">
-          <rect x="0" y="0" width="430" height="1080" />
+        <clipPath id="geoWaterReveal">
+          <rect x="0" y="0" width={1920 * diagramIn} height="1080" />
         </clipPath>
       </defs>
 
-      {/* Quiet upper sky/header zone: diagram elements stay below y=410. */}
-      <path d="M0 390 Q480 370 960 390 T1920 390" fill="none" stroke="#6E9AA0" strokeWidth="2" opacity=".14" />
-      <path d="M0 410 H1920" stroke="#D7BD91" strokeWidth="2" opacity=".2" />
-      <g opacity=".15" stroke="#8CB9BC" strokeWidth="2" fill="none">
-        <path d="M950 105 q55 -20 110 0 t110 0 t110 0" />
-        <path d="M1030 145 q55 -20 110 0 t110 0" />
-        <path d="M1460 280 q55 -20 110 0 t110 0" />
+      {/* Technical grid and subtle guide marks. */}
+      <g stroke="#81A6A8" strokeWidth="1.5" opacity=".12">
+        {Array.from({ length: 12 }, (_, i) => <path key={i} d={`M${80 + i * 160} 420 V1040`} strokeDasharray="4 15" />)}
+        <path d="M70 520 H1850 M70 1040 H1850" />
       </g>
 
-      {/* Sea outside the lowland. Its animated surface stays below the title area. */}
-      <path d={`M0 500 Q95 ${486 - Math.sin(f / 18) * 5} 190 500 T380 500 T430 500 V1080 H0Z`} fill="url(#geoSea)" />
-      {Array.from({ length: 7 }, (_, i) => (
-        <path key={i}
-          d={`M${-170 + i * 84 + drift} ${526 + i * 34} q45 -8 90 0 t90 0`}
-          fill="none" stroke="#8AD0D1" strokeWidth="3" opacity=".3" />
-      ))}
-      <g clipPath="url(#geoSeaClip)" opacity=".32">
-        {Array.from({ length: 15 }, (_, i) => (
-          <path key={i} d={`M${-80 + i * 45 + drift * .45} ${620 + (i % 4) * 80} q35 -8 70 0`}
-            stroke="#B5D9D2" strokeWidth="2" fill="none" />
-        ))}
-      </g>
-
-      {/* Land and subsurface strata reveal from left to right. */}
-      <g clipPath="url(#geoGroundReveal)">
-        <path d="M395 575 Q520 558 650 572 T930 566 T1230 572 T1540 563 T1920 570 V1080 H395Z" fill="#D4BC94" />
-        <path d="M395 650 Q560 625 760 648 T1120 640 T1510 650 T1920 638 V1080 H395Z" fill="url(#geoClay)" />
-        <path d="M395 785 Q580 750 820 784 T1280 778 T1680 785 T1920 770 V1080 H395Z" fill="url(#geoPeat)" />
-        <path d="M395 925 Q610 890 830 925 T1270 918 T1690 925 T1920 910 V1080 H395Z" fill="#63564A" />
-        <path d="M395 1020 Q650 990 920 1017 T1460 1015 T1920 1000 V1080 H395Z" fill="#B6A17E" />
-
-        {/* Sediment details and strata texture. */}
-        {Array.from({ length: 22 }, (_, i) => (
-          <path key={i} d={`M${440 + i * 70} ${670 + (i % 3) * 18} q25 12 52 0`}
-            stroke="#E0C19A" strokeWidth="4" fill="none" opacity=".48" />
-        ))}
-        {Array.from({ length: 18 }, (_, i) => (
-          <path key={i} d={`M${430 + i * 86} ${820 + (i % 4) * 19} q38 -10 72 3`}
-            stroke="#9B8063" strokeWidth="5" fill="none" opacity=".42" />
-        ))}
-        {Array.from({ length: 16 }, (_, i) => (
-          <path key={i} d={`M${470 + i * 90} ${960 + (i % 3) * 17} q32 -8 68 2`}
-            stroke="#D1B991" strokeWidth="3" fill="none" opacity=".35" />
+      {/* Animated coast-to-inland cutaway. */}
+      <g clipPath="url(#geoWaterReveal)">
+        <path d="M0 604 Q110 590 225 604 T405 603 V1080 H0Z" fill="url(#geoOceanFill)" />
+        {waterLines.map((line, i) => (
+          <g key={i} opacity=".34">
+            <path d={`M${line.x} ${line.y} q${line.width / 2} -9 ${line.width} 0 t${line.width} 0`}
+              stroke="#B1E4DD" strokeWidth="3" fill="none" />
+            <path d={`M${line.x + 28} ${line.y + 12} q${line.width / 3} -5 ${line.width * .72} 0`}
+              stroke="#80C6C5" strokeWidth="2" fill="none" />
+          </g>
         ))}
 
-        {/* Groundwater line with moving current marks. */}
-        <path d="M395 748 Q650 730 900 748 T1410 748 T1920 740" stroke="#72C2C7" strokeWidth="5" strokeDasharray="18 13" fill="none" />
-        <path d={`M${-100 + drift} 748 h90 m18 0 h38 m18 0 h90`} stroke="#D0F1E8" strokeWidth="4" fill="none" opacity=".72" />
+        {/* Land profile: the surface is visibly below the sea-level datum. */}
+        <g clipPath="url(#geoLandReveal)">
+          <path d="M405 664 Q560 648 700 660 T1010 655 T1320 663 T1600 650 T1920 660 V1080 H405Z" fill="url(#geoLandTop)" />
+          <path d="M405 760 Q610 735 810 760 T1210 754 T1610 762 T1920 748 V1080 H405Z" fill="url(#geoClayLayer)" />
+          <path d="M405 878 Q620 844 850 880 T1310 875 T1730 882 T1920 867 V1080 H405Z" fill="url(#geoPeatLayer)" />
+          <path d="M405 1000 Q650 962 910 995 T1430 990 T1920 980 V1080 H405Z" fill="#B7A27D" />
 
-        {/* Grass and reeds along the lowland surface. */}
-        {Array.from({ length: 32 }, (_, i) => {
-          const x = 470 + i * 47;
-          const y = 572 + Math.sin(i * 1.8) * 6;
-          const sway = Math.sin(f / 13 + i) * 7;
-          return <g key={i} stroke="#D6D99E" strokeWidth="4" strokeLinecap="round" fill="none" opacity=".88">
-            <path d={`M${x} ${y} q${-5 + sway * .2} -15 ${-10 + sway} -28`} />
-            <path d={`M${x + 3} ${y} q${7 + sway * .3} -13 ${15 + sway} -23`} />
-          </g>;
-        })}
-        <path d="M395 576 Q520 558 650 572 T930 566 T1230 572 T1540 563 T1920 570" stroke="#E9D5B4" strokeWidth="8" fill="none" />
+          {/* Long sediment bands make the geology read as strata, not decorative waves. */}
+          {soilMarks.map((mark, i) => (
+            <path key={i} d={`M${mark.x} ${mark.y} q${mark.width / 2} -9 ${mark.width} 0`}
+              stroke={i % 2 ? "#D9B88D" : "#8D7059"} strokeWidth="4" fill="none" opacity=".48" />
+          ))}
+          {Array.from({ length: 17 }, (_, i) => (
+            <path key={i} d={`M${475 + i * 84} ${942 + (i % 3) * 15} q30 -7 60 0`}
+              stroke="#D5C09A" strokeWidth="3" fill="none" opacity=".28" />
+          ))}
+
+          {/* Grass line and reed movement. */}
+          {Array.from({ length: 34 }, (_, i) => {
+            const x = 475 + i * 43;
+            const sway = Math.sin(f / 12 + i * .7) * 8;
+            return <g key={i} stroke="#E4D79E" strokeWidth="4" strokeLinecap="round" fill="none" opacity=".9">
+              <path d={`M${x} 659 q${-4 + sway * .2} -13 ${-10 + sway} -25`} />
+              <path d={`M${x + 2} 659 q${6 + sway * .25} -12 ${15 + sway} -23`} />
+            </g>;
+          })}
+          <path d="M405 664 Q560 648 700 660 T1010 655 T1320 663 T1600 650 T1920 660"
+            stroke="#F2DDB7" strokeWidth="7" fill="none" />
+          <path d="M405 760 Q610 735 810 760 T1210 754 T1610 762 T1920 748"
+            stroke="#D8B38B" strokeWidth="4" fill="none" opacity=".48" />
+        </g>
+
+        {/* Dune / dike ridge at the coastline. */}
+        <path d="M350 668 L392 635 L431 660 L470 655 L470 694 L350 694Z"
+          fill="#CBB187" stroke="#F0DAB4" strokeWidth="4" />
+        <path d="M355 666 L393 639 L427 661" stroke="#F4E3C4" strokeWidth="3" fill="none" />
+        <path d="M378 636 q14 -28 28 -33 q11 8 19 33" fill="#B9A47C" stroke="#E8D6B4" strokeWidth="3" />
+
+        {/* A moving scan line gives the elevation comparison a clear build. */}
+        <path d={`M0 604 H${1920 * seaLine}`} stroke="#91E1DA" strokeWidth="5" strokeDasharray="18 12" fill="none" />
+        <path d={`M0 604 H${1920 * seaLine}`} stroke="#E8FFFF" strokeWidth="1.5" fill="none" opacity=".55" />
+        <circle cx={1920 * seaLine} cy="604" r="9" fill="#B7F2E9" opacity={seaLine > .98 ? 0 : .9} />
+
+        {/* Below-sea-level height marker draws down to the land. */}
+        <g opacity={measureIn} transform={`translate(0 ${(1 - measureIn) * 20})`}>
+          <path d="M1125 606 V654" stroke={C.gold} strokeWidth="5" />
+          <path d="M1110 606 H1140 M1110 654 H1140" stroke={C.gold} strokeWidth="5" />
+          <path d="M1125 615 l-9 12 M1125 615 l9 12 M1125 645 l-9 -12 M1125 645 l9 -12"
+            stroke={C.gold} strokeWidth="3" fill="none" />
+          <rect x="1150" y="611" width="250" height="38" rx="3" fill="#092334" stroke={C.gold} strokeWidth="1.5" />
+          <text x="1170" y="637" fill="#F3D59C" fontSize="19" fontWeight="800" letterSpacing="2"
+            fontFamily="Arial, Helvetica, sans-serif">BELOW SEA LEVEL</text>
+        </g>
+
+        {/* Groundwater line animates independently from the sea surface. */}
+        <path d={`M405 802 Q620 786 850 802 T1320 798 T1920 793`}
+          stroke="#82D7D5" strokeWidth="4" strokeDasharray="16 12" fill="none" opacity=".95" />
+        <path d={`M${405 + currentDrift} 802 h105 m24 0 h44 m24 0 h105`}
+          stroke="#D5FFFF" strokeWidth="5" fill="none" opacity=".75" />
+
+        {/* Layer labels are pinned to their matching layers. */}
+        <g fontFamily="Arial, Helvetica, sans-serif" fontWeight="800" letterSpacing="3">
+          <text x="525" y="730" fill="#172D38" fontSize="19">CLAY</text>
+          <text x="525" y="865" fill="#F0DDC1" fontSize="19">PEAT</text>
+          <text x="525" y="1035" fill="#243A3D" fontSize="19">SAND</text>
+          <text x="1450" y="790" fill="#BDF0E9" fontSize="17">GROUNDWATER</text>
+        </g>
       </g>
 
-      {/* Sea level datum: it deliberately crosses the land to show the elevation difference. */}
-      <path d="M0 500 H1920" stroke="#72CFD1" strokeWidth="5" strokeDasharray="17 11" opacity=".92" />
-      <path d="M0 500 H1920" stroke="#E4F1E8" strokeWidth="1.5" opacity=".42" />
-
-      {/* Reclaimed lowland embankment and a small canal cut into the polder. */}
-      <path d="M330 500 L370 480 L418 500 L418 615 L330 615Z" fill="#B89B72" stroke="#E5D0A7" strokeWidth="5" />
-      <path d="M340 505 L372 488 L405 505" stroke="#F0DEBD" strokeWidth="4" fill="none" />
-      <path d="M820 573 Q1040 568 1240 574 T1660 572" stroke="#287E8A" strokeWidth="14" fill="none" opacity=".95" />
-      <path d="M820 565 Q1040 560 1240 566 T1660 564" stroke="#C0E2D6" strokeWidth="3" fill="none" opacity=".9" />
-
-      {/* Measuring bracket animates the difference between sea level and land. */}
-      <g opacity={bracket}>
-        <path d={`M1065 500 V${500 + 72 * waterLevel}`} stroke={C.gold} strokeWidth="5" fill="none" />
-        <path d="M1049 500 H1081 M1049 572 H1081" stroke={C.gold} strokeWidth="5" />
-        <path d="M1065 507 l-10 12 M1065 507 l10 12" stroke={C.gold} strokeWidth="3" fill="none" />
-        <path d="M1065 565 l-10 -12 M1065 565 l10 -12" stroke={C.gold} strokeWidth="3" fill="none" />
+      {/* Coast reference labels. */}
+      <g fontFamily="Arial, Helvetica, sans-serif" fontWeight="800" letterSpacing="3">
+        <text x="86" y="574" fill="#C4F0E9" fontSize="20">NORTH SEA</text>
+        <text x="455" y="630" fill="#F2E3C8" fontSize="17">COASTAL DEFENCE</text>
       </g>
+      <path d="M450 618 L402 645" stroke="#F2E3C8" strokeWidth="2.5" fill="none" />
 
-      {/* Depth particles and bubbles move slowly beneath the water table. */}
-      {particles.map((p, i) => (
-        <circle key={i} cx={p.x} cy={p.y} r={p.r} fill={i % 3 === 0 ? "#D7C09A" : "#A5D6D0"} opacity=".28" />
-      ))}
-      {Array.from({ length: 6 }, (_, i) => {
-        const y = 815 + ((f * .7 + i * 58) % 190);
-        const x = 520 + i * 245 + Math.sin(f / 28 + i) * 13;
-        return <circle key={i} cx={x} cy={y} r={5 + (i % 2) * 3} fill="none" stroke="#9AD5D1" strokeWidth="2" opacity=".38" />;
-      })}
-
-      {/* Compact labels are positioned in the diagram zone, not over the title. */}
-      <g fontFamily="Arial, Helvetica, sans-serif" fontWeight="700" letterSpacing="2">
-        <text x="85" y="470" fill="#BCE7E0" fontSize="22">NORTH SEA</text>
-        <text x="520" y="625" fill="#102B37" fontSize="20">LOW-LYING LAND</text>
-        <text x="520" y="780" fill="#E7D5B6" fontSize="20">CLAY</text>
-        <text x="520" y="915" fill="#E7D5B6" fontSize="20">PEAT</text>
-        <text x="520" y="1050" fill="#243B3D" fontSize="20">SAND</text>
-        <text x="1370" y="725" fill="#BEE8E2" fontSize="19">GROUNDWATER</text>
+      {/* Sea-level datum label is attached to the line, not the title area. */}
+      <g opacity={seaLine} fontFamily="Arial, Helvetica, sans-serif" fontWeight="800">
+        <rect x="1495" y="580" width="180" height="35" rx="3" fill="#092334" opacity=".92" />
+        <text x="1513" y="604" fill="#A8E9E3" fontSize="17" letterSpacing="2">SEA LEVEL</text>
       </g>
-      <path d="M1345 716 L1300 746" stroke="#BEE8E2" strokeWidth="3" fill="none" />
     </svg>
 
-    {/* Foreground typography: these layers are above all water and soil artwork. */}
-    <div style={{ position: "absolute", left: 100, top: 92, width: 800, zIndex: 3 }}>
-      <Eyebrow>01 — The geography</Eyebrow>
-      <div style={{ color: C.white, fontSize: 68, fontWeight: 900, lineHeight: .99, letterSpacing: -2.6, marginTop: 20, textShadow: "0 4px 18px rgba(0,0,0,.22)" }}>
-        LIVING BELOW<br />THE WATERLINE
+    {/* Kinetic title: each line enters on its own mask and timing curve. */}
+    <div style={{ position: "absolute", left: 94, top: 70, width: 1040, zIndex: 4, opacity: titleIn }}>
+      <div style={{ color: C.gold, fontSize: 18, fontWeight: 800, letterSpacing: 5, marginBottom: 18 }}>
+        01 / THE GEOGRAPHY
       </div>
-      <div style={{ color: "#D8E3DE", fontSize: 25, lineHeight: 1.48, maxWidth: 680, marginTop: 23 }}>
-        Large parts of the Netherlands sit at or below sea level. Beneath the cities lies soft ground shaped by water.
+      <div style={{ overflow: "hidden", height: 82 }}>
+        <div style={{
+          color: C.white, fontSize: 67, fontWeight: 900, lineHeight: 1,
+          letterSpacing: -2.5, transform: `translateY(${(1 - lineOne) * 86}px)`,
+          textShadow: "0 5px 22px rgba(0,0,0,.25)"
+        }}>THE SEA CAN SIT</div>
+      </div>
+      <div style={{ overflow: "hidden", height: 84 }}>
+        <div style={{
+          color: "#F0D49B", fontSize: 69, fontWeight: 900, lineHeight: 1,
+          letterSpacing: -2.8, transform: `translateY(${(1 - lineTwo) * 88}px)`
+        }}>ABOVE THE LAND.</div>
+      </div>
+      <div style={{ height: 5, width: 620 * interpolate(f, [38, 100], [0, 1], clamp), marginTop: 17, background: "linear-gradient(90deg,#D6AD69,#78C9C5)", borderRadius: 4 }} />
+    </div>
+
+    {/* Changing chapter card doubles as a visual narration cue. */}
+    <div style={{
+      position: "absolute", right: 95, top: 80, width: 585, minHeight: 235,
+      padding: "27px 32px 29px", boxSizing: "border-box",
+      background: "rgba(4,18,29,.94)", border: "1px solid rgba(206,190,153,.25)",
+      borderLeft: `5px solid ${C.gold}`, borderRadius: 5, zIndex: 5,
+      boxShadow: "0 20px 55px rgba(0,0,0,.24)"
+    }}>
+      <div style={{ display: "flex", alignItems: "center", gap: 13, marginBottom: 19 }}>
+        <div style={{ color: C.ink, background: C.gold, width: 35, height: 30, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 15, fontWeight: 900 }}>
+          {chapterBeat.index}
+        </div>
+        <div style={{ color: C.gold, fontSize: 16, fontWeight: 800, letterSpacing: 3 }}>{chapterBeat.label}</div>
+      </div>
+      <div style={{
+        color: C.white, fontSize: 32, fontWeight: 850, lineHeight: 1.12,
+        transform: `translateX(${(1 - beatIn) * 30}px)`, opacity: beatIn
+      }}>{chapterBeat.title}</div>
+      <div style={{
+        color: "#C5D6D2", fontSize: 21, lineHeight: 1.42, marginTop: 14,
+        transform: `translateY(${(1 - beatIn) * 13}px)`, opacity: beatIn
+      }}>{chapterBeat.copy}</div>
+      <div style={{ display: "flex", gap: 7, marginTop: 20 }}>
+        {[0, 1, 2].map((n) => <div key={n} style={{ height: 4, flex: 1, background: n <= (f < 112 ? 0 : f < 245 ? 1 : 2) ? C.gold : "rgba(240,228,206,.18)" }} />)}
       </div>
     </div>
+
+    {/* Animated caption introduces the diagram as it is revealed. */}
+    <div style={{
+      position: "absolute", left: 96, top: 438, zIndex: 4,
+      display: "flex", alignItems: "center", gap: 15,
+      opacity: diagramIn, transform: `translateX(${(1 - diagramIn) * -26}px)`
+    }}>
+      <div style={{ width: 38, height: 3, background: C.gold }} />
+      <div style={{ color: "#D8E5DE", fontSize: 17, fontWeight: 800, letterSpacing: 3 }}>A CROSS-SECTION OF THE LOWLANDS</div>
+    </div>
+
+    {/* Coast and lowland labels animate only after the diagram has been established. */}
+    <div style={{
+      position: "absolute", left: 480, top: 602, zIndex: 4,
+      padding: "9px 15px", background: "rgba(9,33,47,.88)",
+      border: "1px solid rgba(239,220,183,.45)", color: "#F3E4C5",
+      fontSize: 16, fontWeight: 800, letterSpacing: 2,
+      opacity: landCallout, transform: `translateY(${(1 - landCallout) * 18}px)`
+    }}>LOW-LYING LAND</div>
 
     <div style={{
-      position: "absolute", right: 112, top: 105, width: 535,
-      padding: "27px 32px 29px", boxSizing: "border-box",
-      background: "rgba(4,19,30,.92)", border: "1px solid rgba(209,189,145,.22)",
-      borderLeft: `5px solid ${C.gold}`, borderRadius: 4,
-      zIndex: 3, opacity: cardIn, transform: `translateY(${(1 - cardIn) * 24}px)`,
-      boxShadow: "0 18px 45px rgba(0,0,0,.18)"
+      position: "absolute", left: 95, bottom: 126, zIndex: 4,
+      color: "#D4E4DF", fontSize: 16, letterSpacing: 2.5, fontWeight: 700,
+      opacity: interpolate(f, [275, 305], [0, 1], clamp)
     }}>
-      <div style={{ color: C.gold, fontSize: 17, fontWeight: 800, letterSpacing: 3.5 }}>THE CHALLENGE</div>
-      <div style={{ color: C.white, fontSize: 29, fontWeight: 700, lineHeight: 1.22, marginTop: 14 }}>
-        The sea can stand higher than the land.
-      </div>
-      <div style={{ color: "#BFD0CD", fontSize: 19, lineHeight: 1.4, marginTop: 12 }}>
-        The difference is visible in this cross-section.
-      </div>
-    </div>
-
-    <div style={{ position: "absolute", left: 1110, top: 432, zIndex: 3, opacity: bracket, color: C.gold, fontSize: 18, fontWeight: 800, letterSpacing: 2 }}>
-      LAND BELOW SEA LEVEL
-    </div>
-    <div style={{ position: "absolute", right: 115, top: 510, zIndex: 3, color: "#F3E5C8", fontSize: 17, fontWeight: 700, letterSpacing: 2, textShadow: "0 2px 8px rgba(0,0,0,.6)" }}>
-      SEA LEVEL
+      LOW LAND DOES NOT MEAN UNPROTECTED LAND.
     </div>
   </SceneFrame>;
 };
