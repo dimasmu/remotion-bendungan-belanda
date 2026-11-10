@@ -540,3 +540,15 @@ This document covers image-generation prompts only. It must not imply that every
 Only create image prompts for assets whose approved production method is image generation. If the shot needs controlled 3D camera movement, mechanical cutaways or repeatable spatial views, consider Blender. If it needs precise diagrams, labels or animated lines, consider SVG/React. If it needs complex temporal motion, consider AI video or pre-rendered footage.
 
 The final source must still conform to the selected visual style guide and be integrated into Remotion using the appropriate method.
+
+---
+
+## Google Flow owns iteration; repository stores final assets
+
+The user performs image generation, prompt revisions, and visual approval in Google Flow. Do not design this repository as an image-generation workspace or archive.
+
+Only after approval, export the selected final asset into `public/assets/<category>/`. Use simple folders such as `characters/`, `objects/`, `environments/`, `backgrounds/`, `diagrams/`, `effects/`, and `audio/`, with descriptive filenames.
+
+Do not store draft variations, temporary renders, prompt experiments, model-sheet references or version history in this repository by default. A model sheet is optional and remains in Google Flow unless it is directly used in the final composition or explicitly requested for export.
+
+This policy supersedes earlier folder examples in this document that use `project/assets/references/`, `project/assets/generated/temp/`, nested asset IDs or version directories.
