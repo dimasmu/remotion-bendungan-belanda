@@ -54,3 +54,14 @@ For every new video:
 - Each individual character sheet can show multiple views/poses of that same character in a clean, evenly spaced, non-overlapping production-sheet layout. Keep the full character visible.
 - Store reference sheets under `project/assets/references/characters/[CHAR-ID]/v[VERSION]/`; generate isolated transparent production poses/sprites separately under `public/assets/characters/[CHAR-ID]/` when needed.
 - Read `.agents/skills/remotion-documentary/references/CHARACTER_MODEL_GUIDE.md` and `IMAGE_GENERATION_WORKFLOW.md` before preparing character prompts.
+
+
+## Dynamic asset scope and style-specific design guides
+
+- Asset count is never fixed. Derive the exact required assets from the approved script, scene breakdown and storyboard. A project may need zero, one or many characters, objects, environments, vehicles, diagrams, backgrounds or effects.
+- Before creating asset prompts, read `.agents/skills/remotion-documentary/references/ASSET_PLANNING_GUIDE.md`, build a deduplicated asset inventory, and state the actual prompt count by category.
+- Do not create prompts for assets that can be reused, drawn procedurally in Remotion, or are not required by the story.
+- After a visual style is selected, read its dedicated file under `.agents/skills/remotion-documentary/references/styles/`. The style catalogue alone is not a sufficient prompt specification.
+- Each style-specific file defines how its characters (if any), objects, environments, materials, palette, camera and animation should look. Do not apply stickman design rules to other styles.
+- For each independent recurring character, create a separate prompt and reference sheet. For each object/environment, create its own prompt when a dedicated asset is needed. Never force a fixed character or asset count.
+- A single character/object sheet may show multiple views of that same subject; unrelated subjects must not be combined.
