@@ -519,7 +519,7 @@ Do not put style/character instructions into the voice-over document. Do not put
 - **Caption deliverable:** prepare subtitles/captions in addition to burned-in graphics when the platform or workflow needs them.
 - **Multi-platform composition:** build safe areas and responsive layouts for each aspect ratio.
 - **Versioning:** version the production brief, style guide, character sheets and approved script. Do not overwrite an approved design silently.
-- **Approval gates:** topic → format/duration → style → model sheets → research/script → timecoded breakdown → storyboard → scene implementation → render QA.
+- **Approval gates:** topic → format/duration → style and palette → research/script → timecoded breakdown → storyboard and dynamic asset inventory → final asset approval in Google Flow → scene implementation → render QA.
 - **Production status:** report code committed, lint/typecheck, still renders, Studio playback, final MP4 render and full playback as separate statuses.
 
 ## Agent behavior
@@ -537,10 +537,10 @@ This is mandatory after style selection and character/object approval. Read \`re
 - Generate a Style Board Prompt and Style Test Frame Prompt after style approval.
 - Generate a Character Turnaround, Expression Sheet and Action Pose prompt after the character brief is approved.
 - Keep style, character and object reference images separate from Remotion render assets.
-- Canonical character model sheet path: \`project/assets/references/characters/[CHAR-ID]/v[VERSION]/\`.
-- Approved production cutouts and sprite frames: \`public/assets/characters/[CHAR-ID]/\`.
-- Approved object reference images: \`project/assets/references/objects/[OBJ-ID]/v[VERSION]/\`.
-- Render-ready object assets: \`public/assets/objects/[OBJ-ID]/\`.
+- Character model sheets and iterations remain in Google Flow; they are optional references, not required repository files.
+- Approved final character exports: \`public/assets/characters/\`.
+- Object references and revisions remain in Google Flow.
+- Approved final object exports: \`public/assets/objects/\`.
 - Keep the full prompts, versions, approval status and asset registry in the project.
 
 Do not code a recurring character before its model sheet is approved. Do not use an unapproved prompt-generation experiment in the final composition.
