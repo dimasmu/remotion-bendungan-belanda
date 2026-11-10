@@ -3,7 +3,7 @@
 For every new documentary project or any Remotion composition/scene change:
 
 1. Read `.agents/skills/remotion-documentary/SKILL.md`.
-2. For a new video, follow the project intake wizard in this order: content idea; platform and duration; aspect ratio/resolution; visual style; separate character/object model sheets; research and narration; timecoded 1–5 second breakdown; storyboard; implementation and QA.
+2. For a new video, follow the project intake wizard in this order: content idea; platform and duration; aspect ratio/resolution; visual style and palette; research and narration; timecoded 1–5 second breakdown; storyboard; dynamic asset inventory; implementation and QA.
 3. Read the relevant references before working:
    - Content selection: `.agents/skills/remotion-documentary/references/CONTENT_IDEA_CATALOG.md`
    - Platform/duration/resolution: `.agents/skills/remotion-documentary/references/PLATFORM_PRESETS.md`
@@ -39,8 +39,8 @@ For every new video:
 
 11. After visual-style approval, read `.agents/skills/remotion-documentary/references/IMAGE_GENERATION_WORKFLOW.md` and provide the user with a style-board and style-test-frame prompt.
 12. After character/object model approval, provide the corresponding turnaround/model-sheet, expression and action-pose prompts. Ask for approval before using them in scenes.
-13. Store character reference/model sheets in `project/assets/references/characters/[CHAR-ID]/v[VERSION]/`; store only approved render-ready cutouts and sprite frames in `public/assets/characters/[CHAR-ID]/`.
-14. Store style reference boards in `project/assets/references/visual-style/[STYLE-ID]-v[VERSION]/` and object references in `project/assets/references/objects/[OBJ-ID]/v[VERSION]/`. Keep source prompts and approval metadata beside them.
+13. Store only approved final production assets in simple category folders under `public/assets/`. Google Flow owns image iteration and model-sheet references.
+14. Do not create repository reference archives, draft folders or versioned asset directories by default. Export only the selected final files from Google Flow.
 15. Do not mix AI reference sheets with assets actually used by Remotion. Read IMAGE_GENERATION_WORKFLOW.md for exact prompts, naming and approval gates.
 
 
@@ -52,7 +52,7 @@ For every new video:
 - Create a character inventory with a unique Character ID for each recurring character.
 - Generate one separate prompt and one separate canonical model sheet per character. If there are three characters, there must be three prompts and three separate character sheets. Never combine them into one group sheet.
 - Each individual character sheet can show multiple views/poses of that same character in a clean, evenly spaced, non-overlapping production-sheet layout. Keep the full character visible.
-- Store reference sheets under `project/assets/references/characters/[CHAR-ID]/v[VERSION]/`; generate isolated transparent production poses/sprites separately under `public/assets/characters/[CHAR-ID]/` when needed.
+- Keep model sheets and image variations in Google Flow. Export only final isolated assets needed by the actual Remotion scenes.
 - Read `.agents/skills/remotion-documentary/references/CHARACTER_MODEL_GUIDE.md` and `IMAGE_GENERATION_WORKFLOW.md` before preparing character prompts.
 
 
