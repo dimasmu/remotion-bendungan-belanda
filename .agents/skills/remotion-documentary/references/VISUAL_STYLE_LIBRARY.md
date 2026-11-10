@@ -1,181 +1,141 @@
 # Visual Style Library
 
-This file defines **how the video looks**. It is separate from the content idea and character model sheet.
+This catalogue replaces the previous 10-style library. It is based on the two user-provided animation reference videos. Duplicate names and near-duplicate directions have been consolidated into one canonical set of 10 styles.
 
-Here, “model” means the visual/art-direction style, not an AI foundation model such as GPT, Claude or Gemini. Choosing an AI image/video provider is a separate technical decision.
+## Canonical style catalogue
 
-## Choose a style
+| ID | Style | Core visual language | Good fit |
+|---|---|---|---|
+| STYLE-01 | Pixel Art | Crisp pixel grid, limited palette, sprite/tile construction | Retro game-inspired stories, timelines, playful explainers |
+| STYLE-02 | Chalkboard Style | Chalk drawings on dark board, dusty strokes, educational diagrams | Teaching mechanisms, history, step-by-step explanations |
+| STYLE-03 | Glow Sketch | Luminous hand-drawn lines on dark backgrounds | Abstract systems, technology, dramatic reveals |
+| STYLE-04 | PS2 Style | Early-2000s console 3D, low-to-mid poly geometry, era-specific textures | Nostalgic game-like documentary scenes |
+| STYLE-05 | Comic Art | Bold ink, halftone, panels, graphic shadows and impact shapes | Energetic storytelling, historical beats, action |
+| STYLE-06 | Flat Vector | Geometric 2D forms, solid fills, clean editorial layout | Clear educational explainers, data and processes |
+| STYLE-07 | Minimal Line / Stickman | Sparse line figures, simple poses, high contrast and negative space | Minimalist narration-led stories and simple demonstrations |
+| STYLE-08 | CGI Motion | Cinematic dimensional 3D, materials, depth and deliberate camera | Hero objects, environments, cinematic documentary shots |
+| STYLE-09 | Lego Style | Interlocking toy-brick construction, minifigure-like figures, miniature world | Playful reconstructions, cities, machines and process explainers |
+| STYLE-10 | Explainer 3D | Friendly stylized 3D characters, clean environments and clear mechanisms | Educational storytelling and approachable technical explanations |
 
-| ID | Visual direction | Best for | Visual language |
-| --- | --- | --- | --- |
-| STYLE-01 | Detailed documentary stickman | History, war, engineering explainers | Consistent simple characters, expressive poses, detailed environments, cinematic camera and meaningful props |
-| STYLE-02 | Flat 2D explainer | Science, everyday technology | Clean geometry, limited palette, icons and diagrams |
-| STYLE-03 | 2D cut-out / paper collage | History and inventions | Layered paper, tactile edges, parallax and puppet-like motion |
-| STYLE-04 | Hand-drawn illustrated documentary | Historical stories | Ink linework, textured shading, illustrated environments |
-| STYLE-05 | Low-poly 3D | Engineering and objects | Faceted forms, readable silhouettes and simplified materials |
-| STYLE-06 | Stylized cinematic 3D | Large infrastructure and historical scenes | Layered depth, cinematic lighting and controlled camera movement |
-| STYLE-07 | Isometric diorama | Cities, factories and infrastructure | Consistent isometric camera and modular miniature environments |
-| STYLE-08 | Technical blueprint / infographic | How-it-works and engineering | Dimensions, callouts, exploded views and annotated cutaways |
-| STYLE-09 | Clay / stop-motion | Playful explainers and inventions | Tactile surfaces, handcrafted models and stepped motion |
-| STYLE-10 | Cinematic photorealism | Serious documentary | Realistic environments/materials and strict continuity controls |
+## Deduplication decisions from the references
 
-The user may select one ID, combine compatible styles or provide a reference. Do not silently choose a style.
+- “Papan Kapur” and “Chalkboard Style” are one style: **STYLE-02 Chalkboard Style**.
+- “Gaya PS2” and “PS2 Style” are one style: **STYLE-04 PS2 Style**.
+- “Komik” and “Comic Art” are one style: **STYLE-05 Comic Art**.
+- “Bata Mainan” and “Lego Style” are one style: **STYLE-09 Lego Style**.
+- “Stickman Minimalis” and “Minimal Line” are consolidated as **STYLE-07 Minimal Line / Stickman** because both use sparse line-based figures and minimal visual construction. Preserve the specific reference treatment selected by the user in the project style lock.
+- “CGI Motion” remains distinct from “Explainer 3D”: CGI Motion allows a broader cinematic/realistic 3D treatment, while Explainer 3D prioritizes simplified educational readability.
+- The two videos show some styles more clearly than others. The dedicated guides capture the visible direction and provide production rules; they do not claim to reproduce an unseen prompt pack from the video creators.
 
-## Style-lock document
+## Mandatory selection rule
 
-After selection, create a project style guide with:
+The user must select a style or approve a recommendation. Do not silently choose one. A project may use one dominant style and a compatible secondary treatment only when the user approves the hybrid. Do not blend all styles into one video by default.
 
-- Style ID, name and version (e.g. STYLE-01-v1)
-- Shape language, proportions and detail level
-- Primary/secondary palette with hex values
-- Line width / edge treatment
-- Materials and surface texture
-- Lighting and shadow direction
-- Camera perspective and movement rules
-- Background/environment treatment
-- Typography and motion-design language
-- Allowed variations and forbidden deviations
-- Reference images and their permitted use
+After selection:
+1. Read the matching dedicated style specification below.
+2. Explain the proposed art direction in plain language.
+3. Define a project-specific palette with named swatches and exact HEX values.
+4. Obtain palette approval before writing character or asset prompts.
+5. Create a style-board prompt and one topic-specific style-test-frame prompt.
+6. Obtain visual approval before generating the full asset set or implementing scenes.
 
-## Consistency rules
+## Dedicated style specifications
 
-- Keep camera perspective coherent between connected scenes.
-- Maintain scale relationships for recurring subjects and props.
-- Reuse design tokens for colors, strokes, shadows, radii and typography.
-- Set a detail budget; do not make one scene unexpectedly photorealistic while others are flat.
-- Maintain a reference board for recurring locations, objects and machines.
-- For 3D, lock camera lens, lighting, materials and render style.
-- For 2D, lock outline width, shape grammar, perspective, texture and shading.
-- Make one style test frame and one motion test before production.
-- Do not create characters in this document. Use CHARACTER_MODEL_GUIDE.md.
-
-## Style approval gate
-
-Before coding, present:
-1. One-paragraph art direction.
-2. Palette and typography sample.
-3. Environment test frame.
-4. Representative character or hero object.
-5. A short motion test.
-
-Wait for style approval before generating all scenes.
-
-## Suggested project-level style files
-
-- project/style/STYLE_GUIDE.md
-- project/style/PALETTE.md
-- project/style/CAMERA_AND_LIGHTING.md
-- project/style/REFERENCE_BOARD.md
-
-## Style prompt template
-
-~~~text
-Create a visual style test for [STYLE ID].
-
-This is an art-direction test only. Do not invent the story or factual content.
-
-Canvas: [ratio and resolution]
-Style: [selected style]
-Palette: [approved colors]
-Shape language: [description]
-Line / edge treatment: [description]
-Materials / texture: [description]
-Lighting: [description]
-Camera / perspective: [description]
-Typography / motion language: [description]
-Detail level: [description]
-
-Show one representative environment and one representative subject.
-Keep the selected style consistent. No unrequested title, logo or watermark.
-~~~
-
-
-## Mandatory image-generation prompt stage
-
-After the user selects and approves a style, read \`references/IMAGE_GENERATION_WORKFLOW.md\` and prepare a Visual Style Prompt Pack before implementing scenes.
-
-The pack must include:
-- One ready-to-copy style-board prompt.
-- One style-test-frame prompt grounded in the approved topic.
-- A short avoid/negative list.
-- Recommended output ratio and size.
-- Exact save path and filenames.
-
-The first image is a reusable project art-direction reference, not the final scene. Ask the user to approve the style board and test frame. Do not make character designs yet if the style is not approved.
-
-
----
-
-## Mandatory palette declaration before character generation
-
-A project palette must be defined and approved **before writing any character-generation prompt**. Do not leave color decisions to the image model.
-
-After style selection, create `project/style/PALETTE.md` with:
-- Palette version and the selected style ID.
-- Primary/background colors with HEX values.
-- Character base colors and skin/fur/hair/clothing colors as applicable.
-- Accent/highlight colors.
-- Outline/ink color.
-- Shadow and neutral colors.
-- Semantic colors (warning, water, vegetation, metal, fire, etc.) only if the project needs them.
-- Usage ratios or rules (for example, background 60%, primary 30%, accent 10%).
-- Forbidden colors and contrast/readability notes.
-
-Present the palette as named swatches with exact HEX values and explain where each color is used. Ask the user to approve or revise it. Only the approved palette may be included in style-board, character-sheet, object-sheet and scene-asset prompts.
-
-### Stickman direction
-
-STYLE-01 is the **Detailed Documentary Stickman** option and is a first-class supported visual style, not a default forced on every project. When selected, lock:
-- Head shape and head-to-body ratio.
-- Eye, eyebrow and mouth construction and expression range.
-- Body/limb line weight, joint style and hand/foot design.
-- Clothing silhouette and accessory rules.
-- Outline color and thickness.
-- Flat fill, limited shading and texture treatment.
-- Character-specific palette assignments and shared environmental palette.
-
-Stickman characters must remain visually simple and readable, but may have distinct clothing, hats, tools, uniforms and props. Do not turn them into realistic human anatomy or change them into a different illustration style between shots.
-
-### Style approval order
-
-1. Select visual style.
-2. Propose and lock the project palette with HEX values.
-3. Generate and approve the style board/style test.
-4. Define the character inventory and individual character briefs.
-5. Generate one separate prompt and one separate sheet per character.
-6. Approve each character sheet before creating scene-specific production assets.
-
-
----
-
-## Detailed style specification files (mandatory)
-
-The table above is only a style catalogue. When a style is selected, the agent MUST read its dedicated specification before writing prompts or creating assets. Do not rely on the short catalogue description alone.
-
-| Style ID | Dedicated specification |
+| ID | File |
 |---|---|
-| STYLE-01 | [styles/STYLE-01-detailed-documentary-stickman.md](styles/STYLE-01-detailed-documentary-stickman.md) |
-| STYLE-02 | [styles/STYLE-02-flat-2d-explainer.md](styles/STYLE-02-flat-2d-explainer.md) |
-| STYLE-03 | [styles/STYLE-03-2d-cut-out-paper-collage.md](styles/STYLE-03-2d-cut-out-paper-collage.md) |
-| STYLE-04 | [styles/STYLE-04-hand-drawn-illustrated-documentary.md](styles/STYLE-04-hand-drawn-illustrated-documentary.md) |
-| STYLE-05 | [styles/STYLE-05-low-poly-3d.md](styles/STYLE-05-low-poly-3d.md) |
-| STYLE-06 | [styles/STYLE-06-stylized-cinematic-3d.md](styles/STYLE-06-stylized-cinematic-3d.md) |
-| STYLE-07 | [styles/STYLE-07-isometric-diorama.md](styles/STYLE-07-isometric-diorama.md) |
-| STYLE-08 | [styles/STYLE-08-technical-blueprint-infographic.md](styles/STYLE-08-technical-blueprint-infographic.md) |
-| STYLE-09 | [styles/STYLE-09-clay-stop-motion.md](styles/STYLE-09-clay-stop-motion.md) |
-| STYLE-10 | [styles/STYLE-10-cinematic-photorealism.md](styles/STYLE-10-cinematic-photorealism.md) |
+| STYLE-01 | [STYLE-01-pixel-art.md](styles/STYLE-01-pixel-art.md) |
+| STYLE-02 | [STYLE-02-chalkboard-style.md](styles/STYLE-02-chalkboard-style.md) |
+| STYLE-03 | [STYLE-03-glow-sketch.md](styles/STYLE-03-glow-sketch.md) |
+| STYLE-04 | [STYLE-04-ps2-style.md](styles/STYLE-04-ps2-style.md) |
+| STYLE-05 | [STYLE-05-comic-art.md](styles/STYLE-05-comic-art.md) |
+| STYLE-06 | [STYLE-06-flat-vector.md](styles/STYLE-06-flat-vector.md) |
+| STYLE-07 | [STYLE-07-minimal-line-stickman.md](styles/STYLE-07-minimal-line-stickman.md) |
+| STYLE-08 | [STYLE-08-cgi-motion.md](styles/STYLE-08-cgi-motion.md) |
+| STYLE-09 | [STYLE-09-lego-style.md](styles/STYLE-09-lego-style.md) |
+| STYLE-10 | [STYLE-10-explainer-3d.md](styles/STYLE-10-explainer-3d.md) |
 
-Each style specification defines its own character construction (if characters are needed), geometry, line/material treatment, palette behavior, environments, camera and animation rules, asset-sheet format and prompt constraints. Style-specific rules take precedence over generic assumptions, while project-specific approved choices take precedence over defaults inside the style guide.
+Each dedicated guide is mandatory before asset prompts or implementation. It defines the relevant geometry, line/material treatment, palette behavior, characters (if any), environment, camera, motion and prompt constraints.
 
-## Dynamic asset scope
+## Project style lock
 
-There is no default or fixed asset count. Determine the required characters, objects, environments, vehicles, diagrams, backgrounds and effects from the approved story and storyboard. Read `ASSET_PLANNING_GUIDE.md`, build an asset inventory, deduplicate recurring entities and generate prompts only for assets actually required. A project may legitimately need zero characters. Do not assume a fixed number such as three.
+For every video, create a project-level style document containing:
+- Style ID, canonical name and version.
+- Whether the project uses one style or an explicitly approved hybrid.
+- Shape language, proportions and detail budget.
+- Named palette swatches with exact HEX values and usage.
+- Line weight, edge treatment, materials and textures.
+- Lighting, shadow direction and contrast rules.
+- Camera perspective, lens language and movement.
+- Environment/background treatment.
+- Typography and motion-graphics language.
+- Allowed variation and forbidden deviations.
+- Approved reference images and their permitted use.
 
+## Palette approval gate
 
----
+Before any character/object generation prompt:
+- Define background, outline, base, clothing/skin/fur/hair, accent, shadow and semantic colors as applicable.
+- Provide exact HEX values and intended use for every swatch.
+- Explain contrast and usage ratios where useful.
+- Ask the user to approve or revise the palette.
+- Use only the approved palette in all style boards and asset prompts.
 
-## Visual style does not prescribe the production tool
+Do not assume every style needs characters. Asset count and prompt count must come from the approved script, storyboard and asset inventory.
 
-The style guide defines the final art direction and consistency requirements, not a mandatory asset-generation application. A photorealistic style may use AI stills, licensed footage, Blender renders or a hybrid. A blueprint style may use AI-generated reference imagery, SVG diagrams or both. A stickman style may use generated character references and separately animated SVG/PNG cutouts.
+## Style-board prompt template
 
-For every selected style, use `PRODUCTION_METHODS_AND_ANIMATION.md` to choose production and Remotion integration methods per asset/scene. Maintain the approved palette, lighting, material, linework and composition regardless of source method.
+```text
+Create a visual style board for [STYLE-ID — STYLE NAME].
+
+Use the attached visual reference as the style direction. This is an art-direction test, not a finished story scene.
+
+Canvas: [aspect ratio and resolution]
+Style: [canonical style]
+Approved palette: [named HEX swatches]
+Subject domain: [topic and factual subject]
+Shape / line / material language: [from the dedicated style guide]
+Lighting and camera: [approved direction]
+Detail budget: [level]
+Motion language: [how the style should move]
+
+Show a representative environment, one relevant hero subject, and a few close-up details that demonstrate the style. Keep the design coherent and leave clean negative space where Remotion typography may be added.
+
+Do not add unrequested text, logos, watermarks, extra subjects or facts.
+```
+
+## Style test frame prompt template
+
+```text
+Create one style test frame for the approved video project.
+
+Match the approved style board exactly: palette, geometry, linework/materials, lighting, camera and detail level.
+
+Approved subject: [one verified subject]
+Story moment: [one precise shot description]
+Composition: [aspect ratio and resolution]
+Focal subject: [subject]
+Environment: [environment]
+Camera: [shot size, angle and perspective]
+Lighting: [direction and quality]
+Intended motion: [pose/state that can be animated later]
+
+Show one clear visual idea. Preserve negative space for editable typography that will be added in Remotion. Do not add titles, labels, logos, watermark or unsupported factual details.
+```
+
+## Production and animation are separate decisions
+
+A visual style describes the final appearance; it does not dictate a single tool. For each asset/scene, independently choose AI still, AI video, Blender/3D, SVG/React/Canvas, licensed stock, hybrid, reuse or no new asset. Then choose the Remotion integration method: still transforms, layered parallax, SVG motion, pre-rendered video/image sequence, 3D compositing or procedural React animation. Read `PRODUCTION_METHODS_AND_ANIMATION.md`.
+
+Remotion is the frame-based composition/rendering layer. It does not generate source images and is not a replacement for 3D modeling, rigging or simulation tools.
+
+## Quality gate
+
+Before full production, inspect:
+- One approved style board.
+- One topic-specific test frame.
+- One short motion test.
+- Palette consistency.
+- Character/object continuity, if applicable.
+- Legibility at the target output size.
+
+Do not mark a style approved until the user has reviewed it.
