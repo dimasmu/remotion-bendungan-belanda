@@ -101,3 +101,19 @@ Allowed production methods include AI-generated still, AI-generated video, Blend
 Record at minimum: visual style ID, production method, output format, transparency/layer requirements, animation method, source/license and Remotion integration path.
 
 A high-detail image is a valid Remotion asset. So are video plates, image sequences, SVGs, transparent renders and procedural React graphics. Choose based on the shot's requirements, not on a low-poly/stickman-only assumption.
+
+---
+
+## Final repository exports only
+
+All prompt/image revision and iteration is performed by the user in Google Flow. This repository receives only approved final assets for the video.
+
+After the asset inventory is approved and the result is finalized in Google Flow:
+- Export the final asset directly to `public/assets/<category>/`.
+- Use simple category folders and descriptive filenames.
+- Do not create intermediate, draft, temp, generated, reference, model-sheet or version directories in the repository by default.
+- Keep unused variations and working references in Google Flow.
+- A model sheet is optional; only export it if the sheet itself is used in the video or the user explicitly requests it.
+- If the final shot needs separate layers, export only the approved layers required for compositing.
+
+The lightweight inventory should point to the final repository path. It should not become a second asset archive.
