@@ -611,7 +611,7 @@ Do not copy a completed video's code or assets back into the boilerplate merely 
 
 For every new project, follow this order before scene production:
 
-1. Select and approve the visual style from `references/VISUAL_STYLE_LIBRARY.md`. Detailed Documentary Stickman (STYLE-01) is an available style option.
+1. Select and approve one style from the 10-style catalogue in `references/VISUAL_STYLE_LIBRARY.md`. Use the exact matching dedicated specification in `references/styles/`.
 2. Declare the visual identity: style ID/version, shape language, line weight, proportions, materials and rendering rules.
 3. Create `project/style/PALETTE.md` with named colors and exact HEX values. Include background, outlines, character base colors, clothing/skin/fur/hair, accents, shadows and semantic colors as needed. Obtain user approval before image generation.
 4. Create the style board and style test using only the approved palette.
@@ -637,7 +637,7 @@ Before preparing any image-generation prompt:
 5. Calculate and report the actual prompt count by category. Zero characters is valid when the story does not need characters.
 6. Obtain approval of the inventory when it changes scope or generation cost.
 
-When a visual style is selected, read its dedicated specification in `references/styles/` as well as `references/VISUAL_STYLE_LIBRARY.md`. The dedicated style guide defines the visual construction rules. STYLE-01 stickman rules apply only when STYLE-01 is selected; do not transfer them to other styles.
+When a visual style is selected, read its dedicated specification in `references/styles/` as well as `references/VISUAL_STYLE_LIBRARY.md`. The dedicated style guide defines the visual construction rules. Do not import construction rules from another style unless the user explicitly approves a hybrid.
 
 Generate one independent prompt per independent character or asset requiring separate generation. A character sheet contains one character only; an object sheet contains one object or coherent assembly only. Do not combine unrelated entities. Views, poses and callouts inside one sheet must all belong to that same subject.
 
