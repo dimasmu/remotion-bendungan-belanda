@@ -144,3 +144,29 @@ Stickman characters must remain visually simple and readable, but may have disti
 4. Define the character inventory and individual character briefs.
 5. Generate one separate prompt and one separate sheet per character.
 6. Approve each character sheet before creating scene-specific production assets.
+
+
+---
+
+## Detailed style specification files (mandatory)
+
+The table above is only a style catalogue. When a style is selected, the agent MUST read its dedicated specification before writing prompts or creating assets. Do not rely on the short catalogue description alone.
+
+| Style ID | Dedicated specification |
+|---|---|
+| STYLE-01 | [styles/STYLE-01-detailed-documentary-stickman.md](styles/STYLE-01-detailed-documentary-stickman.md) |
+| STYLE-02 | [styles/STYLE-02-flat-2d-explainer.md](styles/STYLE-02-flat-2d-explainer.md) |
+| STYLE-03 | [styles/STYLE-03-2d-cut-out-paper-collage.md](styles/STYLE-03-2d-cut-out-paper-collage.md) |
+| STYLE-04 | [styles/STYLE-04-hand-drawn-illustrated-documentary.md](styles/STYLE-04-hand-drawn-illustrated-documentary.md) |
+| STYLE-05 | [styles/STYLE-05-low-poly-3d.md](styles/STYLE-05-low-poly-3d.md) |
+| STYLE-06 | [styles/STYLE-06-stylized-cinematic-3d.md](styles/STYLE-06-stylized-cinematic-3d.md) |
+| STYLE-07 | [styles/STYLE-07-isometric-diorama.md](styles/STYLE-07-isometric-diorama.md) |
+| STYLE-08 | [styles/STYLE-08-technical-blueprint-infographic.md](styles/STYLE-08-technical-blueprint-infographic.md) |
+| STYLE-09 | [styles/STYLE-09-clay-stop-motion.md](styles/STYLE-09-clay-stop-motion.md) |
+| STYLE-10 | [styles/STYLE-10-cinematic-photorealism.md](styles/STYLE-10-cinematic-photorealism.md) |
+
+Each style specification defines its own character construction (if characters are needed), geometry, line/material treatment, palette behavior, environments, camera and animation rules, asset-sheet format and prompt constraints. Style-specific rules take precedence over generic assumptions, while project-specific approved choices take precedence over defaults inside the style guide.
+
+## Dynamic asset scope
+
+There is no default or fixed asset count. Determine the required characters, objects, environments, vehicles, diagrams, backgrounds and effects from the approved story and storyboard. Read `ASSET_PLANNING_GUIDE.md`, build an asset inventory, deduplicate recurring entities and generate prompts only for assets actually required. A project may legitimately need zero characters. Do not assume a fixed number such as three.
