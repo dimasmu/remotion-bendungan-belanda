@@ -23,97 +23,39 @@ Required order:
 
 Do not generate a character before the style is approved. Do not ask an image model to invent the story, historical facts or engineering mechanism.
 
-## 2. Exact folder structure
+## 2. Simple repository structure — final exports only
 
-Keep **AI reference images** separate from **render-ready assets**.
+Google Flow is the workspace for generating images, trying prompts, reviewing alternatives, revising results and approving the final visual. This repository is the production handoff for Remotion.
+
+Only export approved final assets that are actually needed by the video. Keep the repository structure simple:
 
 ~~~text
-project/
-  production/
-    PRODUCTION_BRIEF.md
-  research/
-    RESEARCH_BRIEF.md
-    SOURCES.md
-  script/
-    VOICEOVER_SCRIPT.md
-    SCENE_BREAKDOWN.md
-  style/
-    STYLE_GUIDE.md
-    PALETTE.md
-    CAMERA_AND_LIGHTING.md
-  assets/
-    references/
-      visual-style/
-        STYLE-01-v001/
-          STYLE-01_style-board.png
-          STYLE-01_environment-test.png
-          STYLE-01_motion-reference.png
-          PROMPTS.md
-          APPROVAL.md
-      characters/
-        CHAR-001/
-          v001/
-            CHAR-001_model-sheet.png
-            CHAR-001_expressions.png
-            CHAR-001_action-poses.png
-            CHAR-001_front.png
-            CHAR-001_three-quarter.png
-            CHAR-001_side.png
-            CHAR-001_back.png
-            PROMPTS.md
-            CHARACTER.md
-            APPROVAL.md
-      objects/
-        OBJ-001/
-          v001/
-            OBJ-001_model-sheet.png
-            OBJ-001_cutaway.png
-            OBJ-001_detail-views.png
-            PROMPTS.md
-            OBJECT.md
-            APPROVAL.md
-    generated/
-      temp/
-        [unapproved experiment files]
-  characters/
-    CHARACTER_REGISTRY.md
-  objects/
-    OBJECT_REGISTRY.md
-  qa/
-    IMAGE_REFERENCE_QA.md
-
 public/
   assets/
     characters/
-      CHAR-001/
-        CHAR-001_idle.png
-        CHAR-001_walk_0001.png
-        CHAR-001_walk_0002.png
     objects/
-      OBJ-001/
-        OBJ-001_front.png
-        OBJ-001_cutaway.png
+    environments/
     backgrounds/
-    illustrations/
-    textures/
-    images/
-    video/
+    diagrams/
+    effects/
     audio/
-    fonts/
+
+src/
+  components/
+  compositions/
+  scenes/
 ~~~
 
-### Folder rules
+Use descriptive filenames, for example:
 
-- \`project/assets/references/\` stores the model sheets, style boards, reference images and prompt files that agents consult. These are not automatically render assets.
-- \`Google Flow\` stores unapproved experiments. Never let an unapproved image silently become a production asset.
-- \`public/assets/\` stores only the final approved images, cutouts, sprite frames, backgrounds, videos, audio and fonts that Remotion actually loads.
-- \`project/characters/\` and \`project/objects/\` store registries and design specifications, not the only copy of the images.
-- Character reference sheets belong under \`Google Flow\`.
-- The production-ready transparent character renders / sprite frames belong under \`public/assets/characters/CHAR-001/\`.
-- Do not place the canonical model sheet inside \`public/\` unless the video intentionally displays that sheet. This avoids mixing design documentation with render inputs.
-- If the repository does not already contain \`project/\`, create it. The folders are part of the project convention, not a Remotion-enforced directory structure.
-- Use forward slashes in paths even on Windows.
-- Use lowercase file extensions and stable IDs. Do not use filenames such as \`final2-new.png\`, \`image123.png\` or \`latest-character.png\`.
+- `public/assets/characters/researcher.png`
+- `public/assets/objects/cathedral-interior.png`
+- `public/assets/environments/medieval-village.png`
+- `public/assets/diagrams/gothic-arch-construction.svg`
+
+Do not create repository folders for draft generations, prompt experiments, temporary files, model-sheet archives, references or version history by default. Do not add nested asset-ID or version folders unless the user explicitly requests them or a concrete implementation requirement makes them necessary.
+
+A model sheet is optional. Keep it in Google Flow unless the sheet itself is intentionally displayed in the final video. If a final shot needs separated layers, export only the approved layers that Remotion will actually use.
 
 ### How Remotion uses production assets
 
