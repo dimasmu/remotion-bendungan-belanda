@@ -1,20 +1,44 @@
 # STYLE-06 — Flat Vector
 
-## Visual identity
-A clean 2D explainer system built from simple geometric forms, solid fills, clear silhouettes and disciplined editorial composition.
+## Reference reading
+The examples show a polished 2D explainer illustration. The office version uses a clean modern workspace, simplified worker, computer desk, large window/city view and strong geometric shapes. The bus version uses a simplified city and vehicle with a limited cool palette. It is more dimensional than a bare icon set but remains flat 2D illustration.
 
-## Construction rules
-- Lock a limited named HEX palette, shape grammar, corner radius and outline policy.
-- Use flat color fills with minimal or no gradients; shadows are subtle and consistent.
-- Characters use simplified geometric anatomy and repeatable proportions.
-- Icons, diagrams, environments and props must look as if they belong to one vector illustration system.
-- Keep foreground/background separation and negative space strong.
+## Visual signature
+- Clean vector-like silhouettes and large geometric color areas.
+- Simplified people with clear poses and minimal facial details.
+- Modern office/city objects reduced to readable shapes.
+- Cool blue, indigo and purple areas with restrained warm accents, subject to frame sampling.
+- Subtle depth through overlapping planes and controlled shadows, not realistic texture.
+- Clear foreground/midground/background separation.
 
-## Camera and motion
-Use layered 2D movement, position/scale/rotation, shape morphs, path reveals, masks, diagram assembly and kinetic typography. Use easing consistently. Camera movement is usually a controlled 2D pan or zoom rather than simulated 3D perspective.
+## Geometry and line treatment
+- Use consistent shape grammar: rounded or softly angular forms, consistent corner radii and repeatable proportions.
+- Decide whether outlines are absent, dark thin outlines or selective outlines; do not mix randomly.
+- Use solid fills, restrained gradients and simple shadow shapes.
+- Characters, furniture, vehicles and architecture must share the same vector construction logic.
+- Keep detail sparse enough for vertical/mobile viewing.
 
-## Asset prompt requirements
-Specify vector-like flat illustration, palette, shape language, outline weight, perspective, subject count and clean background. Ask for isolated elements only when needed; otherwise build precise graphics in SVG/React. Never rely on generated text for labels.
+## Palette and lighting
+- Extract HEX colors from the supplied frame for each project. The visible examples favor blue/purple/cool neutrals with small warm accents.
+- Use one dominant cool background family, a secondary supporting family and one accent color for attention.
+- Lighting is graphic and simplified; avoid realistic reflections and complex surface textures.
+- Maintain strong contrast between the main character/object and the environment.
 
-## Avoid
-Photorealistic texture, inconsistent gradients, random outline weights, excessive detail, drop-shadow overload and mixed illustration styles.
+## Camera and layout
+- Use clean 2D or shallow-perspective compositions.
+- Office scenes can use a three-quarter room view with clear desk/window layout; city scenes use layered skyline and street planes.
+- Keep the main action in the center with clear negative space for titles/callouts.
+- Avoid extreme perspective and cinematic lens effects.
+
+## Motion language
+- Animate shapes, paths, masks, position, scale and rotation.
+- Use gentle parallax between foreground, character/action and background.
+- Animate process steps sequentially; use clear transitions and kinetic typography.
+- Character movement should be simple and readable: walk cycle, arm gesture, head turn or object interaction.
+- Use easing that feels smooth and designed, not physically realistic.
+
+## Asset and prompt requirements
+Specify vector illustration, shape grammar, palette, character simplification, environment layout, perspective and shadow policy. Request clean isolated assets or layered scenes as needed. Use SVG/React for diagrams and precise typography whenever practical.
+
+## Do not
+Do not use photoreal textures, hand-painted brushwork, comic halftone, thick ink outlines unless explicitly selected, glossy 3D materials or random gradients.
