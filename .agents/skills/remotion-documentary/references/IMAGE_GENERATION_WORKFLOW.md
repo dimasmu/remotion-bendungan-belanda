@@ -16,104 +16,46 @@ Required order:
 6. User generates/reviews/approves the style reference image.
 7. If characters are needed, agent creates a character brief and stable Character ID.
 8. Agent writes and presents a **Character Model Prompt Pack**.
-9. User generates/reviews/approves the character model sheet.
+9. User optionally generates/reviews a model sheet in Google Flow when recurring character consistency requires it.
 10. Agent writes a scene/object-specific prompt pack only when new assets are needed.
 11. Approved references are stored in the correct folders and registered.
 12. Only then does the agent produce final storyboards and scene implementation prompts.
 
 Do not generate a character before the style is approved. Do not ask an image model to invent the story, historical facts or engineering mechanism.
 
-## 2. Exact folder structure
+## 2. Simple repository structure — final exports only
 
-Keep **AI reference images** separate from **render-ready assets**.
+Google Flow is the workspace for generating images, trying prompts, reviewing alternatives, revising results and approving the final visual. This repository is the production handoff for Remotion.
+
+Only export approved final assets that are actually needed by the video. Keep the repository structure simple:
 
 ~~~text
-project/
-  production/
-    PRODUCTION_BRIEF.md
-  research/
-    RESEARCH_BRIEF.md
-    SOURCES.md
-  script/
-    VOICEOVER_SCRIPT.md
-    SCENE_BREAKDOWN.md
-  style/
-    STYLE_GUIDE.md
-    PALETTE.md
-    CAMERA_AND_LIGHTING.md
-  assets/
-    references/
-      visual-style/
-        STYLE-01-v001/
-          STYLE-01_style-board.png
-          STYLE-01_environment-test.png
-          STYLE-01_motion-reference.png
-          PROMPTS.md
-          APPROVAL.md
-      characters/
-        CHAR-001/
-          v001/
-            CHAR-001_model-sheet.png
-            CHAR-001_expressions.png
-            CHAR-001_action-poses.png
-            CHAR-001_front.png
-            CHAR-001_three-quarter.png
-            CHAR-001_side.png
-            CHAR-001_back.png
-            PROMPTS.md
-            CHARACTER.md
-            APPROVAL.md
-      objects/
-        OBJ-001/
-          v001/
-            OBJ-001_model-sheet.png
-            OBJ-001_cutaway.png
-            OBJ-001_detail-views.png
-            PROMPTS.md
-            OBJECT.md
-            APPROVAL.md
-    generated/
-      temp/
-        [unapproved experiment files]
-  characters/
-    CHARACTER_REGISTRY.md
-  objects/
-    OBJECT_REGISTRY.md
-  qa/
-    IMAGE_REFERENCE_QA.md
-
 public/
   assets/
     characters/
-      CHAR-001/
-        CHAR-001_idle.png
-        CHAR-001_walk_0001.png
-        CHAR-001_walk_0002.png
     objects/
-      OBJ-001/
-        OBJ-001_front.png
-        OBJ-001_cutaway.png
+    environments/
     backgrounds/
-    illustrations/
-    textures/
-    images/
-    video/
+    diagrams/
+    effects/
     audio/
-    fonts/
+
+src/
+  components/
+  compositions/
+  scenes/
 ~~~
 
-### Folder rules
+Use descriptive filenames, for example:
 
-- \`project/assets/references/\` stores the model sheets, style boards, reference images and prompt files that agents consult. These are not automatically render assets.
-- \`project/assets/generated/temp/\` stores unapproved experiments. Never let an unapproved image silently become a production asset.
-- \`public/assets/\` stores only the final approved images, cutouts, sprite frames, backgrounds, videos, audio and fonts that Remotion actually loads.
-- \`project/characters/\` and \`project/objects/\` store registries and design specifications, not the only copy of the images.
-- Character reference sheets belong under \`project/assets/references/characters/CHAR-001/v001/\`.
-- The production-ready transparent character renders / sprite frames belong under \`public/assets/characters/CHAR-001/\`.
-- Do not place the canonical model sheet inside \`public/\` unless the video intentionally displays that sheet. This avoids mixing design documentation with render inputs.
-- If the repository does not already contain \`project/\`, create it. The folders are part of the project convention, not a Remotion-enforced directory structure.
-- Use forward slashes in paths even on Windows.
-- Use lowercase file extensions and stable IDs. Do not use filenames such as \`final2-new.png\`, \`image123.png\` or \`latest-character.png\`.
+- `public/assets/characters/researcher.png`
+- `public/assets/objects/cathedral-interior.png`
+- `public/assets/environments/medieval-village.png`
+- `public/assets/diagrams/gothic-arch-construction.svg`
+
+Do not create repository folders for draft generations, prompt experiments, temporary files, model-sheet archives, references or version history by default. Do not add nested asset-ID or version folders unless the user explicitly requests them or a concrete implementation requirement makes them necessary.
+
+A model sheet is optional. Keep it in Google Flow unless the sheet itself is intentionally displayed in the final video. If a final shot needs separated layers, export only the approved layers that Remotion will actually use.
 
 ### How Remotion uses production assets
 
@@ -212,54 +154,33 @@ DO NOT:
 
 OUTPUT:
 Save as [STYLE-ID]_style-board.png in:
-project/assets/references/visual-style/[STYLE-ID]-v[VERSION]/
+Google Flow (style board and visual reference; not stored in the repository by default)
 ~~~
 
-## 6. Example style prompt — detailed documentary stickman
+## 6. Style-specific prompt direction
 
-~~~text
-Create a visual style reference board for a detailed documentary stickman series.
+The previous example prompts for Detailed Documentary Stickman and Technical Blueprint are retired. The canonical visual styles are now the 10 reference-based styles in `VISUAL_STYLE_LIBRARY.md`.
 
-This is a visual-style test only, not a storyboard and not a finished video frame.
+Before writing a style-board or asset prompt:
+1. Ask the user to select one of the 10 canonical styles (or approve a clearly defined hybrid).
+2. Read that style's dedicated specification under `references/styles/`.
+3. Extract its geometry, palette behavior, line/material treatment, environment, lighting, camera and motion rules.
+4. Use the approved project palette and factual subject brief.
+5. Keep the prompt specific to the selected style; never carry over details from a retired style guide.
 
-Canvas: 16:9 landscape, high resolution.
+Canonical style prompt files:
+- STYLE-01 Pixel Art — `styles/STYLE-01-pixel-art.md`
+- STYLE-02 Chalkboard Style — `styles/STYLE-02-chalkboard-style.md`
+- STYLE-03 Glow Sketch — `styles/STYLE-03-glow-sketch.md`
+- STYLE-04 PS2 Style — `styles/STYLE-04-ps2-style.md`
+- STYLE-05 Comic Art — `styles/STYLE-05-comic-art.md`
+- STYLE-06 Flat Vector — `styles/STYLE-06-flat-vector.md`
+- STYLE-07 Minimal Line / Stickman — `styles/STYLE-07-minimal-line-stickman.md`
+- STYLE-08 CGI Motion — `styles/STYLE-08-cgi-motion.md`
+- STYLE-09 Lego Style — `styles/STYLE-09-lego-style.md`
+- STYLE-10 Explainer 3D — `styles/STYLE-10-explainer-3d.md`
 
-Style: detailed documentary stickman illustration. Characters have simple, readable stickman silhouettes with round heads, clean expressive faces, consistent black line weight and restrained proportions. Environments, machinery, architecture and props are richly illustrated and more detailed than the characters, but they must still belong to one coherent 2D illustrated world.
-
-Show:
-- One representative street or industrial environment.
-- One anonymous stickman engineer in a neutral standing pose.
-- One close-up of a mechanical object with hand-drawn detail.
-- A small palette of dark ink, warm off-white, muted teal, ochre and brick red.
-
-Visual treatment: hand-drawn 2D illustration, controlled ink outlines, layered color blocks, subtle paper grain, cinematic depth through overlapping foreground/midground/background, directional soft light, detailed but readable props.
-
-Character proportions must remain simple and consistent. Do not turn characters into realistic humans. Do not create a Pixar-like 3D render, photorealistic scene, anime face or glossy vector icon.
-
-No text, title, logo, watermark, extra captions or comic speech bubbles.
-~~~
-
-## 7. Example style prompt — technical blueprint / infographic
-
-~~~text
-Create a visual style reference board for a technical documentary infographic series.
-
-This is an art-direction sample only, not a complete engineering diagram and not a final video frame.
-
-Canvas: 16:9 landscape, high resolution.
-
-Style: premium technical blueprint motion-graphics language. Deep navy background, precise cyan and warm amber linework, clean sectional geometry, subtle grid, dimensional callout markers, measured line weights, restrained glow and clear visual hierarchy.
-
-Show:
-- One simplified infrastructure cutaway.
-- One isolated mechanical component.
-- One close-up of technical linework and material hatching.
-- A small palette of navy, cyan, pale grey and amber swatches.
-
-The visual language must feel precise, calm and documentary-grade. Use straight leaders, alignment guides and clear negative space. Avoid clutter.
-
-Do not invent exact dimensions, data, engineering claims, labels or units. Add real measurements and labels later from verified research. No logos, fake writing, watermark or photorealistic people.
-~~~
+Do not use the retired detailed documentary stickman or technical blueprint prompts as default visual directions. Minimal Line / Stickman is the only canonical stick-figure option and must follow its new dedicated guide.
 
 ## 8. Style test frame prompt
 
@@ -284,7 +205,7 @@ Show one clear visual idea, with intentional negative space for typography that 
 
 ## 9. Character prompt pack
 
-The model sheet is a design reference, not a scene. Generate separate sheets in sequence to avoid changing a character while trying to fit every pose into one crowded image.
+A model sheet is an optional design reference, not a scene. Use one only when it helps maintain consistency; otherwise generate the final production asset directly.
 
 ### A. Character turnaround prompt
 
@@ -318,7 +239,7 @@ Do not add other characters, props not present in the brief, new costume parts, 
 OUTPUT:
 [CHAR-ID]_model-sheet.png
 Save to:
-project/assets/references/characters/[CHAR-ID]/v[VERSION]/
+Google Flow (character model sheet and iteration workspace)
 ~~~
 
 ### B. Expression sheet prompt
@@ -331,7 +252,7 @@ neutral, curious, concerned, surprised, confident and explaining.
 
 Keep head shape, eye style, facial proportions, hair/headwear and line style identical in every expression. Only expression changes. Neutral plain background, same camera scale and lighting. No extra costume/accessory changes. No text, labels, logos or watermark.
 
-Save as [CHAR-ID]_expressions.png in project/assets/references/characters/[CHAR-ID]/v[VERSION]/.
+Keep the expression reference in Google Flow; export only final poses needed by Remotion.
 ~~~
 
 ### C. Action pose sheet prompt
@@ -346,7 +267,7 @@ The character's design must not change: identical head/body proportions, face, c
 
 Do not add unapproved objects, clothing details, characters, captions, labels, logos or watermark.
 
-Save as [CHAR-ID]_action-poses.png in project/assets/references/characters/[CHAR-ID]/v[VERSION]/.
+Keep the action-pose reference in Google Flow; export only final poses needed by Remotion.
 ~~~
 
 ### D. Clean production cutout prompt
@@ -390,12 +311,12 @@ Simplifications: [list any intentional simplification].
 Keep the object structurally consistent across views. Do not invent components, measurements, labels, logos or functions. Leave labels out; precise annotations will be added in Remotion.
 
 Save as [OBJ-ID]_model-sheet.png in:
-project/assets/references/objects/[OBJ-ID]/v[VERSION]/
+Google Flow (object reference and iteration workspace)
 ~~~
 
 ## 11. Approval and promotion rules
 
-- Generated images first go into \`project/assets/generated/temp/\` or the relevant reference folder with status "pending".
+- Generated images first go into \`Google Flow\` or the relevant reference folder with status "pending".
 - The user must approve the style board before character generation.
 - The user must approve the character turnaround before expression/action/production cutouts are treated as canonical.
 - Do not overwrite an approved image. Create v002 and record the change.
@@ -427,3 +348,128 @@ After the character brief is approved, respond with:
 7. A consistency checklist.
 
 Do not jump directly to coding when an image reference is expected but not yet generated/approved.
+
+
+---
+
+## 10. Character-by-character generation (mandatory)
+
+When a project has multiple recurring characters, generate **one separate prompt per character**. Never ask the image model to draw a dog, Person 1 and Person 2 together on one combined character sheet.
+
+Example for a three-character project:
+- Prompt 01 — Dog / CHAR-001 → one dog-only model sheet.
+- Prompt 02 — Person 1 / CHAR-002 → one person-only model sheet.
+- Prompt 03 — Person 2 / CHAR-003 → one person-only model sheet.
+
+This is N prompts for N characters. Each prompt produces its own canonical sheet and is saved under that character's own folder. The sheets may share the same approved style board and project palette, but each generation must depict only its assigned character.
+
+### Required look of each sheet
+
+Use a clean production-sheet layout inspired by the supplied visual references:
+- One character repeated in multiple distinct views/poses on a single sheet.
+- Separate front, three-quarter, side and back views.
+- A small expression set and relevant action poses.
+- Small accessory/prop callouts for that character only.
+- Consistent scale, spacing, proportions, outline and palette.
+- Plain neutral background and uncluttered layout.
+- No overlap, cropping, extra characters, scene backgrounds or text-heavy labels.
+
+A character sheet is a design reference, not a sprite atlas. For Remotion, separately create transparent isolated poses/sprites or rig components needed for production. Never rely on cropping a multi-pose sheet at runtime unless explicit sprite coordinates and QA are implemented.
+
+### Palette gate — before any character prompt
+
+Before generating character prompts, the agent must:
+1. Declare the project's visual style ID/version.
+2. Propose a named color palette with exact HEX values in `project/style/PALETTE.md`.
+3. Define background, outline, character base colors, clothing/fur/skin/hair, accent, shadow and semantic colors as applicable.
+4. Show the palette to the user and obtain approval.
+5. Insert the exact approved HEX values into every character prompt.
+
+Do not invent a new palette per character. Character-specific colors may vary only where the approved character brief requires it, while staying inside the project palette or an explicitly approved character color extension.
+
+### Prompt count and output contract
+
+For N approved recurring characters, output N independent character-generation prompts. Each prompt must:
+- Name exactly one Character ID and one character.
+- Explicitly say "exactly one character; no other characters".
+- Include the approved style reference and exact approved HEX palette.
+- Describe only that character's locked appearance and signature props.
+- Request its own clean model-sheet layout.
+- Specify a unique output path and filename.
+
+Recommended paths:
+- Reference sheet: `Google Flow (character model sheet and iteration workspace)[CHAR-ID]_model-sheet.png`
+- Expression sheet (if separate): `Google Flow (character model sheet and iteration workspace)[CHAR-ID]_expressions.png`
+- Action sheet (if separate): `Google Flow (character model sheet and iteration workspace)[CHAR-ID]_action-poses.png`
+- Production assets: `public/assets/characters/[CHAR-ID]/`
+
+Use the same style board and palette across every character to maintain visual cohesion. Do not merge the characters' reference sheets into a single image.
+
+### Prompt skeleton — one character only
+
+~~~text
+Create a clean CHARACTER MODEL SHEET for exactly one character.
+
+CHARACTER: [name]
+CHARACTER ID: [CHAR-ID]
+ROLE: [role]
+STYLE: [approved style ID/version]
+STYLE REFERENCE: [approved style-board reference]
+APPROVED PALETTE:
+- [Color name] [#HEX]
+- [Color name] [#HEX]
+- [Color name] [#HEX]
+[include all relevant approved palette tokens]
+
+DESIGN:
+[precise locked appearance, proportions, silhouette, clothing/fur/skin/hair, face, accessories and signature props]
+
+SHEET LAYOUT:
+Show this same character only in separate, evenly spaced, non-overlapping views:
+front, three-quarter, side, back; a compact expression row; a compact action-pose row; and small accessory callouts. Keep the entire character visible in every pose and keep proportions identical.
+
+BACKGROUND:
+Plain neutral studio background, no environment or story scene.
+
+DO NOT:
+No other character, no group, no crowd, no interaction, no scene, no storyboard, no unrelated props, no labels, no text, no logo, no watermark, no unapproved colors and no style drift.
+
+OUTPUT:
+One standalone sheet for [CHAR-ID], saved to:
+Google Flow (character model sheet and iteration workspace)[CHAR-ID]_model-sheet.png
+~~~
+
+
+
+---
+
+## Dynamic asset count and style guide lookup (supersedes fixed-count examples)
+
+Never assume a fixed number of characters, objects or prompts. Determine the exact scope from the approved script, scene breakdown and storyboard. Read `references/ASSET_PLANNING_GUIDE.md`, create a deduplicated inventory, and generate prompts only for items that need new independent assets. It is valid for a project to require zero character prompts.
+
+For every selected visual style, read its dedicated specification under `references/styles/` before preparing prompts. The dedicated guide is the authority for how that style's characters (if any), objects, environments, materials, camera and animation are constructed.
+
+Generate one prompt per independent asset requiring separate generation. A character prompt produces a character-only sheet; an object prompt produces an object-only sheet or coherent assembly; an environment prompt produces an environment reference. A single sheet may show multiple views/poses of its one subject. Do not merge unrelated subjects.
+
+
+---
+
+## Image generation is one production option, not the whole asset workflow
+
+This document covers image-generation prompts only. It must not imply that every asset should be generated as a still image. First consult `PRODUCTION_METHODS_AND_ANIMATION.md` and decide whether each item is better produced as an AI still, AI video, Blender render, SVG/React/Canvas graphic, licensed stock asset, hybrid, reuse or no asset.
+
+Only create image prompts for assets whose approved production method is image generation. If the shot needs controlled 3D camera movement, mechanical cutaways or repeatable spatial views, consider Blender. If it needs precise diagrams, labels or animated lines, consider SVG/React. If it needs complex temporal motion, consider AI video or pre-rendered footage.
+
+The final source must still conform to the selected visual style guide and be integrated into Remotion using the appropriate method.
+
+---
+
+## Google Flow owns iteration; repository stores final assets
+
+The user performs image generation, prompt revisions, and visual approval in Google Flow. Do not design this repository as an image-generation workspace or archive.
+
+Only after approval, export the selected final asset into `public/assets/<category>/`. Use simple folders such as `characters/`, `objects/`, `environments/`, `backgrounds/`, `diagrams/`, `effects/`, and `audio/`, with descriptive filenames.
+
+Do not store draft variations, temporary renders, prompt experiments, model-sheet references or version history in this repository by default. A model sheet is optional and remains in Google Flow unless it is directly used in the final composition or explicitly requested for export.
+
+This policy supersedes earlier folder examples in this document that use `project/assets/references/`, `Google Flow`, nested asset IDs or version directories.

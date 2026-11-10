@@ -441,9 +441,9 @@ If the style needs recurring characters, read:
 
 - references/CHARACTER_MODEL_GUIDE.md
 
-Character creation is its own deliverable, not part of the scriptwriting step. Create a character brief and model sheet (front, three-quarter, side, back, expressions, poses, colors, props, proportions), then wait for approval. Keep a character registry with stable IDs. The script must refer to IDs; it must not redefine character appearance in every scene.
+Character design is planned separately from scriptwriting. For recurring or visually complex characters, establish a concise character description and visual reference in Google Flow. A full model sheet (front, three-quarter, side, back, expressions and poses) is optional, not mandatory. Keep stable character IDs in the asset inventory so the script does not redefine appearance in every scene.
 
-For non-character documentaries, create object model sheets for important machines, buildings, mechanisms and recurring places. An engineering explainer needs consistent pumps, dikes, gates, buildings and diagrams even if it has no characters.
+For non-character documentaries, establish consistent visual references for important recurring machines, buildings, mechanisms and places in Google Flow. Generate formal object model sheets only when they materially improve consistency.
 
 Do not use the character-model guide to invent historical facts or to write content. Do not use the content script as the canonical character design.
 
@@ -519,7 +519,7 @@ Do not put style/character instructions into the voice-over document. Do not put
 - **Caption deliverable:** prepare subtitles/captions in addition to burned-in graphics when the platform or workflow needs them.
 - **Multi-platform composition:** build safe areas and responsive layouts for each aspect ratio.
 - **Versioning:** version the production brief, style guide, character sheets and approved script. Do not overwrite an approved design silently.
-- **Approval gates:** topic → format/duration → style → model sheets → research/script → timecoded breakdown → storyboard → scene implementation → render QA.
+- **Approval gates:** topic → format/duration → style and palette → research/script → timecoded breakdown → storyboard and dynamic asset inventory → final asset approval in Google Flow → scene implementation → render QA.
 - **Production status:** report code committed, lint/typecheck, still renders, Studio playback, final MP4 render and full playback as separate statuses.
 
 ## Agent behavior
@@ -537,10 +537,145 @@ This is mandatory after style selection and character/object approval. Read \`re
 - Generate a Style Board Prompt and Style Test Frame Prompt after style approval.
 - Generate a Character Turnaround, Expression Sheet and Action Pose prompt after the character brief is approved.
 - Keep style, character and object reference images separate from Remotion render assets.
-- Canonical character model sheet path: \`project/assets/references/characters/[CHAR-ID]/v[VERSION]/\`.
-- Approved production cutouts and sprite frames: \`public/assets/characters/[CHAR-ID]/\`.
-- Approved object reference images: \`project/assets/references/objects/[OBJ-ID]/v[VERSION]/\`.
-- Render-ready object assets: \`public/assets/objects/[OBJ-ID]/\`.
+- Character model sheets and iterations remain in Google Flow; they are optional references, not required repository files.
+- Approved final character exports: \`public/assets/characters/\`.
+- Object references and revisions remain in Google Flow.
+- Approved final object exports: \`public/assets/objects/\`.
 - Keep the full prompts, versions, approval status and asset registry in the project.
 
-Do not code a recurring character before its model sheet is approved. Do not use an unapproved prompt-generation experiment in the final composition.
+Do not implement a recurring character until its visual design is sufficiently established and approved in Google Flow. A formal model sheet is not required unless the production needs one. Never use an unapproved image-generation experiment in the final composition.
+
+
+---
+
+# Git Branch Isolation for New Video Projects
+
+This repository is a reusable boilerplate, not the working branch for individual videos.
+
+## Branch roles
+
+- **Boilerplate source:** `feat/template-remotion`. Keep this branch generic, stable, and reusable.
+- **Video project:** one dedicated branch per video, named `feat/<video-title-slug>`.
+- **Default branch:** `main` is not the starting point for new video work under the current workflow.
+
+## When to create a project branch
+
+Do not create a project branch at the beginning of planning. First complete and obtain the user's approval for the production plan:
+
+1. Topic and working title.
+2. Platform, target duration, aspect ratio, resolution, and FPS.
+3. Visual style and style guide direction.
+4. Character/object model direction and approvals where applicable.
+5. Research brief and approved narration.
+6. Timecoded scene/beat breakdown.
+7. Storyboard and motion plan.
+
+Only after the user approves the plan and authorizes moving into build/implementation should the agent create the project branch.
+
+## Branch creation rules
+
+1. Verify the current repository and confirm that `feat/template-remotion` exists.
+2. Read the current HEAD SHA of `feat/template-remotion`.
+3. Create `feat/<video-title-slug>` directly from that branch's current HEAD.
+4. Use lowercase kebab-case for the slug. Example: `feat/why-netherlands-does-not-sink`.
+5. If the proposed branch already exists, inspect it and ask the user whether to continue on it. Never force-reset, overwrite, or silently reuse it.
+6. Confirm the created branch and its base commit before making project files.
+
+## What belongs where
+
+**Keep on `feat/template-remotion`:**
+- Reusable Remotion configuration and starter composition.
+- Generic components, utilities, styles, and folder conventions.
+- Production skills, reference guides, templates, and general documentation.
+- Generic fixes that improve the starter for future videos.
+
+**Keep on a video project branch:**
+- Topic-specific compositions and scenes.
+- Video-specific scripts, research, storyboards, and production briefs.
+- Character/object designs and approved assets for that video.
+- Topic-specific dependencies, data, graphics, and rendering configuration.
+
+Do not copy a completed video's code or assets back into the boilerplate merely because they were developed from it. If a genuinely reusable improvement is discovered, propose it separately and wait for approval before changing the boilerplate.
+
+## Isolation and merge policy
+
+- All build, implementation, iteration, and QA commits for a video stay on its project branch.
+- Never commit topic-specific work to `feat/template-remotion`.
+- Never merge into `feat/template-remotion` or `main` without explicit user approval.
+- Report the project branch name, base branch, and base commit when starting implementation.
+
+
+---
+
+## Visual identity, palette and isolated character assets
+
+For every new project, follow this order before scene production:
+
+1. Select and approve one style from the 10-style catalogue in `references/VISUAL_STYLE_LIBRARY.md`. Use the exact matching dedicated specification in `references/styles/`.
+2. Declare the visual identity: style ID/version, shape language, line weight, proportions, materials and rendering rules.
+3. Create `project/style/PALETTE.md` with named colors and exact HEX values. Include background, outlines, character base colors, clothing/skin/fur/hair, accents, shadows and semantic colors as needed. Obtain user approval before image generation.
+4. Create the style board and style test using only the approved palette.
+5. Inventory recurring characters and assign a unique Character ID to each.
+6. Create exactly one independent image-generation prompt per character. Each prompt must generate a sheet for one character only. Never combine multiple characters in one prompt or sheet.
+7. Each character sheet may show that same character in separate turnaround views, expressions, action poses and accessory callouts, arranged cleanly with no overlaps or cropping.
+8. Approve each canonical character sheet. Generate isolated transparent poses/sprites or rig parts separately for Remotion production when required.
+
+Follow `references/CHARACTER_MODEL_GUIDE.md` and `references/IMAGE_GENERATION_WORKFLOW.md` exactly. A composite model sheet is a reference document, not automatically a render-ready sprite atlas.
+
+
+---
+
+# Dynamic asset planning and style-specific visual specifications
+
+Asset scope is derived from the actual story. There is no fixed number of characters, props, objects, environments, vehicles, diagrams or generated images.
+
+Before preparing any image-generation prompt:
+1. Read `references/ASSET_PLANNING_GUIDE.md`.
+2. Inspect the approved script, scene breakdown and storyboard.
+3. Build a deduplicated asset inventory with stable IDs and usage by scene/beat.
+4. Classify each item as reference sheet, isolated production asset, procedural Remotion graphic, reuse or no asset needed.
+5. Calculate and report the actual prompt count by category. Zero characters is valid when the story does not need characters.
+6. Obtain approval of the inventory when it changes scope or generation cost.
+
+When a visual style is selected, read its dedicated specification in `references/styles/` as well as `references/VISUAL_STYLE_LIBRARY.md`. The dedicated style guide defines the visual construction rules. Do not import construction rules from another style unless the user explicitly approves a hybrid.
+
+Generate one independent prompt per independent character or asset requiring separate generation. A character sheet contains one character only; an object sheet contains one object or coherent assembly only. Do not combine unrelated entities. Views, poses and callouts inside one sheet must all belong to that same subject.
+
+
+---
+
+# Separate visual style, asset production method and animation method
+
+These are independent planning dimensions. The selected visual style controls the final appearance, but it does not force the production tool for every asset.
+
+Before creating assets or implementing scenes, read `references/PRODUCTION_METHODS_AND_ANIMATION.md`. For every scene and asset:
+1. Select the visual style and read its dedicated style specification.
+2. Determine the asset requirements from the script and storyboard.
+3. Choose the most suitable production method independently for each asset: AI still, AI video, Blender/3D, SVG/React/Canvas procedural graphics, licensed stock, hybrid, reuse or no asset.
+4. Choose how the result will be animated in Remotion: still-image transforms, 2D layers/parallax, SVG motion, pre-rendered video/image sequence, 3D render compositing or procedural React animation.
+5. Record output format, alpha/layer requirements, source/license and integration path in the asset registry.
+6. Keep all methods visually coherent with the approved style guide and palette.
+
+Remotion can compose high-resolution still images, video, image sequences, SVG/vector graphics, transparent renders and React-generated graphics. It can animate timing, transforms, layers, masks, paths, typography and transitions. It does not generate source images by itself and is not a substitute for Blender's modeling, rigging or 3D simulation. Use a suitable external production tool where needed, then integrate its output.
+
+A scene may legitimately combine a photorealistic background plate, detailed close-up image, Blender-rendered reconstruction, SVG technical overlay and Remotion typography. This is an example of a hybrid approach, not a mandatory template.
+
+---
+
+# Repository asset storage policy — approved final exports only
+
+The user performs image generation revisions and iterations in Google Flow, not inside this repository. The repository is the production handoff location, not the image-iteration archive.
+
+Default workflow:
+1. Create and revise prompts/images in Google Flow.
+2. Approve the final result in Google Flow.
+3. Export only the approved production-ready asset into `public/assets/<category>/`.
+4. Reference that file from Remotion using `staticFile("assets/<category>/<filename>")`.
+
+Use simple category folders: `characters/`, `objects/`, `environments/`, `backgrounds/`, `diagrams/`, `effects/`, `audio/`. Add a category only when the project needs it.
+
+Do not create draft, temp, generated, reference, model-sheet archive, or version folders in the repository by default. Do not copy every iteration from Google Flow into the repo. Use descriptive filenames rather than deep ID/version paths.
+
+Model sheets and visual references remain in Google Flow unless a particular sheet is deliberately used in the final video. A model sheet is optional, not a mandatory step for every character/object. If a layered deliverable is needed, store only the final approved layers required by Remotion in the relevant category folder.
+
+This storage policy supersedes older examples in this skill that show `project/assets/references/`, `project/assets/generated/temp/`, `v001/` or other nested reference/version structures.
