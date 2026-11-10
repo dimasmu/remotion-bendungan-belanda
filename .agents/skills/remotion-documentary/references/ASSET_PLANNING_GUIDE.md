@@ -78,12 +78,9 @@ For a character, create one character-only prompt and sheet. For an object, crea
 
 ## Prompt and output directories
 
-- Character reference: `project/assets/references/characters/[CHAR-ID]/v[VERSION]/`
-- Object reference: `project/assets/references/objects/[OBJ-ID]/v[VERSION]/`
-- Environment reference: `project/assets/references/environments/[ENV-ID]/v[VERSION]/`
-- Other references: `project/assets/references/[category]/[ASSET-ID]/v[VERSION]/`
-- Render-ready assets: `public/assets/[category]/[ASSET-ID]/`
-- Prompt and approval metadata: `PROMPTS.md`, `APPROVAL.md`, plus the central `project/assets/ASSET_REGISTRY.md`.
+- Final approved assets only: `public/assets/<category>/<descriptive-filename>`.
+- Prompt iteration, model sheets, alternatives and visual approval: Google Flow.
+- Keep a lightweight asset inventory in the production brief or scene breakdown; do not create a separate nested asset archive.
 
 ## Approval and change control
 
