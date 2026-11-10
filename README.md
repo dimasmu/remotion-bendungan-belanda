@@ -35,14 +35,25 @@ npm run render
 
 The default render command writes `out/video.mp4`. Change the composition ID and output path when starting a new production.
 
-## Start a new video
+## New video workflow and branch policy
 
-1. Open this repository in your coding agent from the repository root.
-2. Invoke `@remotion-documentary`.
-3. Follow `AGENTS.md` and the skill's intake workflow: choose content idea, platform/duration, ratio/resolution, visual style, character/object references, research/script, timecoded narration, storyboard, implementation and QA.
-4. Store project-specific documents in `project/`.
-5. Store approved render-ready assets in `public/assets/`.
-6. Work on a separate project branch; do not commit topic-specific work to the reusable boilerplate branch.
+**Do not build an individual video directly on `feat/template-remotion`.** That branch is the clean, reusable boilerplate.
+
+1. Start by planning the video. Follow the intake workflow in `AGENTS.md` and the production skill: topic, platform/duration, aspect ratio/resolution, visual style, character/object direction, research/narration, timecoded breakdown, and storyboard.
+2. Get the user's approval of the complete plan before creating a project branch.
+3. When the user approves moving into build/implementation, create a new branch from the latest `feat/template-remotion`.
+4. Name the branch `feat/<video-title-slug>` using lowercase kebab-case. Example: `feat/why-netherlands-does-not-sink`.
+5. Do all video-specific code, compositions, scenes, scripts, research documents, assets, and build changes on that project branch.
+6. Keep `feat/template-remotion` generic. Only reusable boilerplate improvements belong there.
+7. Do not overwrite an existing project branch or merge any project branch into the boilerplate or `main` without explicit user approval.
+
+The expected branch flow is:
+
+```text
+feat/template-remotion
+  └── feat/<video-title-slug>
+        └── all implementation, iteration, and QA for that video
+```
 
 ## Recommended project structure
 
