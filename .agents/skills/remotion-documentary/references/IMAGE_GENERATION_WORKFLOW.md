@@ -16,7 +16,7 @@ Required order:
 6. User generates/reviews/approves the style reference image.
 7. If characters are needed, agent creates a character brief and stable Character ID.
 8. Agent writes and presents a **Character Model Prompt Pack**.
-9. User generates/reviews/approves the character model sheet.
+9. User optionally generates/reviews a model sheet in Google Flow when recurring character consistency requires it.
 10. Agent writes a scene/object-specific prompt pack only when new assets are needed.
 11. Approved references are stored in the correct folders and registered.
 12. Only then does the agent produce final storyboards and scene implementation prompts.
@@ -226,7 +226,7 @@ Show one clear visual idea, with intentional negative space for typography that 
 
 ## 9. Character prompt pack
 
-The model sheet is a design reference, not a scene. Generate separate sheets in sequence to avoid changing a character while trying to fit every pose into one crowded image.
+A model sheet is an optional design reference, not a scene. Use one only when it helps maintain consistency; otherwise generate the final production asset directly.
 
 ### A. Character turnaround prompt
 
