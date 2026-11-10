@@ -441,9 +441,9 @@ If the style needs recurring characters, read:
 
 - references/CHARACTER_MODEL_GUIDE.md
 
-Character creation is its own deliverable, not part of the scriptwriting step. Create a character brief and model sheet (front, three-quarter, side, back, expressions, poses, colors, props, proportions), then wait for approval. Keep a character registry with stable IDs. The script must refer to IDs; it must not redefine character appearance in every scene.
+Character design is planned separately from scriptwriting. For recurring or visually complex characters, establish a concise character description and visual reference in Google Flow. A full model sheet (front, three-quarter, side, back, expressions and poses) is optional, not mandatory. Keep stable character IDs in the asset inventory so the script does not redefine appearance in every scene.
 
-For non-character documentaries, create object model sheets for important machines, buildings, mechanisms and recurring places. An engineering explainer needs consistent pumps, dikes, gates, buildings and diagrams even if it has no characters.
+For non-character documentaries, establish consistent visual references for important recurring machines, buildings, mechanisms and places in Google Flow. Generate formal object model sheets only when they materially improve consistency.
 
 Do not use the character-model guide to invent historical facts or to write content. Do not use the content script as the canonical character design.
 
@@ -543,7 +543,7 @@ This is mandatory after style selection and character/object approval. Read \`re
 - Approved final object exports: \`public/assets/objects/\`.
 - Keep the full prompts, versions, approval status and asset registry in the project.
 
-Do not code a recurring character before its model sheet is approved. Do not use an unapproved prompt-generation experiment in the final composition.
+Do not implement a recurring character until its visual design is sufficiently established and approved in Google Flow. A formal model sheet is not required unless the production needs one. Never use an unapproved image-generation experiment in the final composition.
 
 
 ---
