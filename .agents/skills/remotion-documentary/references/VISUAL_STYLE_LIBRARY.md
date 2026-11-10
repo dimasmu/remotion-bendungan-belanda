@@ -170,3 +170,12 @@ Each style specification defines its own character construction (if characters a
 ## Dynamic asset scope
 
 There is no default or fixed asset count. Determine the required characters, objects, environments, vehicles, diagrams, backgrounds and effects from the approved story and storyboard. Read `ASSET_PLANNING_GUIDE.md`, build an asset inventory, deduplicate recurring entities and generate prompts only for assets actually required. A project may legitimately need zero characters. Do not assume a fixed number such as three.
+
+
+---
+
+## Visual style does not prescribe the production tool
+
+The style guide defines the final art direction and consistency requirements, not a mandatory asset-generation application. A photorealistic style may use AI stills, licensed footage, Blender renders or a hybrid. A blueprint style may use AI-generated reference imagery, SVG diagrams or both. A stickman style may use generated character references and separately animated SVG/PNG cutouts.
+
+For every selected style, use `PRODUCTION_METHODS_AND_ANIMATION.md` to choose production and Remotion integration methods per asset/scene. Maintain the approved palette, lighting, material, linework and composition regardless of source method.
