@@ -89,7 +89,7 @@ src/
   styles/
 ```
 
-Reference images/model sheets belong in `project/assets/references/`. Only approved images actually used by the video belong in `public/assets/`.
+Google Flow is used for image generation, revisions and approval. Export only approved final assets into `public/assets/<category>/`.
 
 ## Production skill
 
