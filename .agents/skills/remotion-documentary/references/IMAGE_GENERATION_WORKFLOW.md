@@ -157,51 +157,30 @@ Save as [STYLE-ID]_style-board.png in:
 Google Flow (style board and visual reference; not stored in the repository by default)
 ~~~
 
-## 6. Example style prompt — detailed documentary stickman
+## 6. Style-specific prompt direction
 
-~~~text
-Create a visual style reference board for a detailed documentary stickman series.
+The previous example prompts for Detailed Documentary Stickman and Technical Blueprint are retired. The canonical visual styles are now the 10 reference-based styles in `VISUAL_STYLE_LIBRARY.md`.
 
-This is a visual-style test only, not a storyboard and not a finished video frame.
+Before writing a style-board or asset prompt:
+1. Ask the user to select one of the 10 canonical styles (or approve a clearly defined hybrid).
+2. Read that style's dedicated specification under `references/styles/`.
+3. Extract its geometry, palette behavior, line/material treatment, environment, lighting, camera and motion rules.
+4. Use the approved project palette and factual subject brief.
+5. Keep the prompt specific to the selected style; never carry over details from a retired style guide.
 
-Canvas: 16:9 landscape, high resolution.
+Canonical style prompt files:
+- STYLE-01 Pixel Art — `styles/STYLE-01-pixel-art.md`
+- STYLE-02 Chalkboard Style — `styles/STYLE-02-chalkboard-style.md`
+- STYLE-03 Glow Sketch — `styles/STYLE-03-glow-sketch.md`
+- STYLE-04 PS2 Style — `styles/STYLE-04-ps2-style.md`
+- STYLE-05 Comic Art — `styles/STYLE-05-comic-art.md`
+- STYLE-06 Flat Vector — `styles/STYLE-06-flat-vector.md`
+- STYLE-07 Minimal Line / Stickman — `styles/STYLE-07-minimal-line-stickman.md`
+- STYLE-08 CGI Motion — `styles/STYLE-08-cgi-motion.md`
+- STYLE-09 Lego Style — `styles/STYLE-09-lego-style.md`
+- STYLE-10 Explainer 3D — `styles/STYLE-10-explainer-3d.md`
 
-Style: detailed documentary stickman illustration. Characters have simple, readable stickman silhouettes with round heads, clean expressive faces, consistent black line weight and restrained proportions. Environments, machinery, architecture and props are richly illustrated and more detailed than the characters, but they must still belong to one coherent 2D illustrated world.
-
-Show:
-- One representative street or industrial environment.
-- One anonymous stickman engineer in a neutral standing pose.
-- One close-up of a mechanical object with hand-drawn detail.
-- A small palette of dark ink, warm off-white, muted teal, ochre and brick red.
-
-Visual treatment: hand-drawn 2D illustration, controlled ink outlines, layered color blocks, subtle paper grain, cinematic depth through overlapping foreground/midground/background, directional soft light, detailed but readable props.
-
-Character proportions must remain simple and consistent. Do not turn characters into realistic humans. Do not create a Pixar-like 3D render, photorealistic scene, anime face or glossy vector icon.
-
-No text, title, logo, watermark, extra captions or comic speech bubbles.
-~~~
-
-## 7. Example style prompt — technical blueprint / infographic
-
-~~~text
-Create a visual style reference board for a technical documentary infographic series.
-
-This is an art-direction sample only, not a complete engineering diagram and not a final video frame.
-
-Canvas: 16:9 landscape, high resolution.
-
-Style: premium technical blueprint motion-graphics language. Deep navy background, precise cyan and warm amber linework, clean sectional geometry, subtle grid, dimensional callout markers, measured line weights, restrained glow and clear visual hierarchy.
-
-Show:
-- One simplified infrastructure cutaway.
-- One isolated mechanical component.
-- One close-up of technical linework and material hatching.
-- A small palette of navy, cyan, pale grey and amber swatches.
-
-The visual language must feel precise, calm and documentary-grade. Use straight leaders, alignment guides and clear negative space. Avoid clutter.
-
-Do not invent exact dimensions, data, engineering claims, labels or units. Add real measurements and labels later from verified research. No logos, fake writing, watermark or photorealistic people.
-~~~
+Do not use the retired detailed documentary stickman or technical blueprint prompts as default visual directions. Minimal Line / Stickman is the only canonical stick-figure option and must follow its new dedicated guide.
 
 ## 8. Style test frame prompt
 
