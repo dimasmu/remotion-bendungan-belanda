@@ -105,10 +105,10 @@ public/
 ### Folder rules
 
 - \`project/assets/references/\` stores the model sheets, style boards, reference images and prompt files that agents consult. These are not automatically render assets.
-- \`project/assets/generated/temp/\` stores unapproved experiments. Never let an unapproved image silently become a production asset.
+- \`Google Flow\` stores unapproved experiments. Never let an unapproved image silently become a production asset.
 - \`public/assets/\` stores only the final approved images, cutouts, sprite frames, backgrounds, videos, audio and fonts that Remotion actually loads.
 - \`project/characters/\` and \`project/objects/\` store registries and design specifications, not the only copy of the images.
-- Character reference sheets belong under \`project/assets/references/characters/CHAR-001/v001/\`.
+- Character reference sheets belong under \`Google Flow\`.
 - The production-ready transparent character renders / sprite frames belong under \`public/assets/characters/CHAR-001/\`.
 - Do not place the canonical model sheet inside \`public/\` unless the video intentionally displays that sheet. This avoids mixing design documentation with render inputs.
 - If the repository does not already contain \`project/\`, create it. The folders are part of the project convention, not a Remotion-enforced directory structure.
@@ -212,7 +212,7 @@ DO NOT:
 
 OUTPUT:
 Save as [STYLE-ID]_style-board.png in:
-project/assets/references/visual-style/[STYLE-ID]-v[VERSION]/
+Google Flow (style board and visual reference; not stored in the repository by default)
 ~~~
 
 ## 6. Example style prompt — detailed documentary stickman
@@ -318,7 +318,7 @@ Do not add other characters, props not present in the brief, new costume parts, 
 OUTPUT:
 [CHAR-ID]_model-sheet.png
 Save to:
-project/assets/references/characters/[CHAR-ID]/v[VERSION]/
+Google Flow (character model sheet and iteration workspace)
 ~~~
 
 ### B. Expression sheet prompt
@@ -331,7 +331,7 @@ neutral, curious, concerned, surprised, confident and explaining.
 
 Keep head shape, eye style, facial proportions, hair/headwear and line style identical in every expression. Only expression changes. Neutral plain background, same camera scale and lighting. No extra costume/accessory changes. No text, labels, logos or watermark.
 
-Save as [CHAR-ID]_expressions.png in project/assets/references/characters/[CHAR-ID]/v[VERSION]/.
+Keep the expression reference in Google Flow; export only final poses needed by Remotion.
 ~~~
 
 ### C. Action pose sheet prompt
@@ -346,7 +346,7 @@ The character's design must not change: identical head/body proportions, face, c
 
 Do not add unapproved objects, clothing details, characters, captions, labels, logos or watermark.
 
-Save as [CHAR-ID]_action-poses.png in project/assets/references/characters/[CHAR-ID]/v[VERSION]/.
+Keep the action-pose reference in Google Flow; export only final poses needed by Remotion.
 ~~~
 
 ### D. Clean production cutout prompt
@@ -390,12 +390,12 @@ Simplifications: [list any intentional simplification].
 Keep the object structurally consistent across views. Do not invent components, measurements, labels, logos or functions. Leave labels out; precise annotations will be added in Remotion.
 
 Save as [OBJ-ID]_model-sheet.png in:
-project/assets/references/objects/[OBJ-ID]/v[VERSION]/
+Google Flow (object reference and iteration workspace)
 ~~~
 
 ## 11. Approval and promotion rules
 
-- Generated images first go into \`project/assets/generated/temp/\` or the relevant reference folder with status "pending".
+- Generated images first go into \`Google Flow\` or the relevant reference folder with status "pending".
 - The user must approve the style board before character generation.
 - The user must approve the character turnaround before expression/action/production cutouts are treated as canonical.
 - Do not overwrite an approved image. Create v002 and record the change.
@@ -477,9 +477,9 @@ For N approved recurring characters, output N independent character-generation p
 - Specify a unique output path and filename.
 
 Recommended paths:
-- Reference sheet: `project/assets/references/characters/[CHAR-ID]/v[VERSION]/[CHAR-ID]_model-sheet.png`
-- Expression sheet (if separate): `project/assets/references/characters/[CHAR-ID]/v[VERSION]/[CHAR-ID]_expressions.png`
-- Action sheet (if separate): `project/assets/references/characters/[CHAR-ID]/v[VERSION]/[CHAR-ID]_action-poses.png`
+- Reference sheet: `Google Flow (character model sheet and iteration workspace)[CHAR-ID]_model-sheet.png`
+- Expression sheet (if separate): `Google Flow (character model sheet and iteration workspace)[CHAR-ID]_expressions.png`
+- Action sheet (if separate): `Google Flow (character model sheet and iteration workspace)[CHAR-ID]_action-poses.png`
 - Production assets: `public/assets/characters/[CHAR-ID]/`
 
 Use the same style board and palette across every character to maintain visual cohesion. Do not merge the characters' reference sheets into a single image.
@@ -515,7 +515,7 @@ No other character, no group, no crowd, no interaction, no scene, no storyboard,
 
 OUTPUT:
 One standalone sheet for [CHAR-ID], saved to:
-project/assets/references/characters/[CHAR-ID]/v[VERSION]/[CHAR-ID]_model-sheet.png
+Google Flow (character model sheet and iteration workspace)[CHAR-ID]_model-sheet.png
 ~~~
 
 
@@ -551,4 +551,4 @@ Only after approval, export the selected final asset into `public/assets/<catego
 
 Do not store draft variations, temporary renders, prompt experiments, model-sheet references or version history in this repository by default. A model sheet is optional and remains in Google Flow unless it is directly used in the final composition or explicitly requested for export.
 
-This policy supersedes earlier folder examples in this document that use `project/assets/references/`, `project/assets/generated/temp/`, nested asset IDs or version directories.
+This policy supersedes earlier folder examples in this document that use `project/assets/references/`, `Google Flow`, nested asset IDs or version directories.
