@@ -427,3 +427,94 @@ After the character brief is approved, respond with:
 7. A consistency checklist.
 
 Do not jump directly to coding when an image reference is expected but not yet generated/approved.
+
+
+---
+
+## 10. Character-by-character generation (mandatory)
+
+When a project has multiple recurring characters, generate **one separate prompt per character**. Never ask the image model to draw a dog, Person 1 and Person 2 together on one combined character sheet.
+
+Example for a three-character project:
+- Prompt 01 — Dog / CHAR-001 → one dog-only model sheet.
+- Prompt 02 — Person 1 / CHAR-002 → one person-only model sheet.
+- Prompt 03 — Person 2 / CHAR-003 → one person-only model sheet.
+
+This is N prompts for N characters. Each prompt produces its own canonical sheet and is saved under that character's own folder. The sheets may share the same approved style board and project palette, but each generation must depict only its assigned character.
+
+### Required look of each sheet
+
+Use a clean production-sheet layout inspired by the supplied visual references:
+- One character repeated in multiple distinct views/poses on a single sheet.
+- Separate front, three-quarter, side and back views.
+- A small expression set and relevant action poses.
+- Small accessory/prop callouts for that character only.
+- Consistent scale, spacing, proportions, outline and palette.
+- Plain neutral background and uncluttered layout.
+- No overlap, cropping, extra characters, scene backgrounds or text-heavy labels.
+
+A character sheet is a design reference, not a sprite atlas. For Remotion, separately create transparent isolated poses/sprites or rig components needed for production. Never rely on cropping a multi-pose sheet at runtime unless explicit sprite coordinates and QA are implemented.
+
+### Palette gate — before any character prompt
+
+Before generating character prompts, the agent must:
+1. Declare the project's visual style ID/version.
+2. Propose a named color palette with exact HEX values in `project/style/PALETTE.md`.
+3. Define background, outline, character base colors, clothing/fur/skin/hair, accent, shadow and semantic colors as applicable.
+4. Show the palette to the user and obtain approval.
+5. Insert the exact approved HEX values into every character prompt.
+
+Do not invent a new palette per character. Character-specific colors may vary only where the approved character brief requires it, while staying inside the project palette or an explicitly approved character color extension.
+
+### Prompt count and output contract
+
+For N approved recurring characters, output N independent character-generation prompts. Each prompt must:
+- Name exactly one Character ID and one character.
+- Explicitly say "exactly one character; no other characters".
+- Include the approved style reference and exact approved HEX palette.
+- Describe only that character's locked appearance and signature props.
+- Request its own clean model-sheet layout.
+- Specify a unique output path and filename.
+
+Recommended paths:
+- Reference sheet: `project/assets/references/characters/[CHAR-ID]/v[VERSION]/[CHAR-ID]_model-sheet.png`
+- Expression sheet (if separate): `project/assets/references/characters/[CHAR-ID]/v[VERSION]/[CHAR-ID]_expressions.png`
+- Action sheet (if separate): `project/assets/references/characters/[CHAR-ID]/v[VERSION]/[CHAR-ID]_action-poses.png`
+- Production assets: `public/assets/characters/[CHAR-ID]/`
+
+Use the same style board and palette across every character to maintain visual cohesion. Do not merge the characters' reference sheets into a single image.
+
+### Prompt skeleton — one character only
+
+~~~text
+Create a clean CHARACTER MODEL SHEET for exactly one character.
+
+CHARACTER: [name]
+CHARACTER ID: [CHAR-ID]
+ROLE: [role]
+STYLE: [approved style ID/version]
+STYLE REFERENCE: [approved style-board reference]
+APPROVED PALETTE:
+- [Color name] [#HEX]
+- [Color name] [#HEX]
+- [Color name] [#HEX]
+[include all relevant approved palette tokens]
+
+DESIGN:
+[precise locked appearance, proportions, silhouette, clothing/fur/skin/hair, face, accessories and signature props]
+
+SHEET LAYOUT:
+Show this same character only in separate, evenly spaced, non-overlapping views:
+front, three-quarter, side, back; a compact expression row; a compact action-pose row; and small accessory callouts. Keep the entire character visible in every pose and keep proportions identical.
+
+BACKGROUND:
+Plain neutral studio background, no environment or story scene.
+
+DO NOT:
+No other character, no group, no crowd, no interaction, no scene, no storyboard, no unrelated props, no labels, no text, no logo, no watermark, no unapproved colors and no style drift.
+
+OUTPUT:
+One standalone sheet for [CHAR-ID], saved to:
+project/assets/references/characters/[CHAR-ID]/v[VERSION]/[CHAR-ID]_model-sheet.png
+~~~
+
