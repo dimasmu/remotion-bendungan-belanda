@@ -42,3 +42,15 @@ For every new video:
 13. Store character reference/model sheets in `project/assets/references/characters/[CHAR-ID]/v[VERSION]/`; store only approved render-ready cutouts and sprite frames in `public/assets/characters/[CHAR-ID]/`.
 14. Store style reference boards in `project/assets/references/visual-style/[STYLE-ID]-v[VERSION]/` and object references in `project/assets/references/objects/[OBJ-ID]/v[VERSION]/`. Keep source prompts and approval metadata beside them.
 15. Do not mix AI reference sheets with assets actually used by Remotion. Read IMAGE_GENERATION_WORKFLOW.md for exact prompts, naming and approval gates.
+
+
+## Visual style, palette and character asset rules
+
+- Before image generation, select and approve a visual style. STYLE-01 Detailed Documentary Stickman is an available option; do not force it when another style is selected.
+- Declare and approve a project color palette with named colors and exact HEX values in `project/style/PALETTE.md` before creating character prompts.
+- Use the approved style board and the same approved palette across all character prompts.
+- Create a character inventory with a unique Character ID for each recurring character.
+- Generate one separate prompt and one separate canonical model sheet per character. If there are three characters, there must be three prompts and three separate character sheets. Never combine them into one group sheet.
+- Each individual character sheet can show multiple views/poses of that same character in a clean, evenly spaced, non-overlapping production-sheet layout. Keep the full character visible.
+- Store reference sheets under `project/assets/references/characters/[CHAR-ID]/v[VERSION]/`; generate isolated transparent production poses/sprites separately under `public/assets/characters/[CHAR-ID]/` when needed.
+- Read `.agents/skills/remotion-documentary/references/CHARACTER_MODEL_GUIDE.md` and `IMAGE_GENERATION_WORKFLOW.md` before preparing character prompts.
