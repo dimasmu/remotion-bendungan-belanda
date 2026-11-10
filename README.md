@@ -10,7 +10,7 @@ This repository intentionally contains no finished documentary or topic-specific
 - TypeScript, ESLint and Prettier configuration.
 - Documentary production skill and references.
 - Platform presets for YouTube, Shorts, Instagram and Facebook.
-- Content idea catalog, visual-style library and character/object model guide.
+- Content idea catalog, the 10-style reference-based visual library, and character/object model guide.
 - Image-generation prompt workflow and reference/production asset folder conventions.
 - Production brief and timecoded scene-breakdown templates.
 
