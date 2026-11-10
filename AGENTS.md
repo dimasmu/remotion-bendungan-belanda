@@ -76,3 +76,16 @@ For every new video:
 - Remotion is the composition and frame-based video rendering layer; it is not itself an image generator or a full 3D modeling/rigging application. Use Blender or other suitable tools for source 3D work, then integrate rendered outputs.
 - Hybrid scenes are allowed and often useful, provided every element follows the approved visual style, palette and continuity rules.
 - Do not assume high-detail photorealistic assets are unsupported. High-resolution stills, footage, 3D renders, SVG graphics and layered compositions can all be used as Remotion inputs.
+
+## Final assets only — simple project asset folders
+
+The user's image revision and iteration workflow happens in Google Flow, outside this repository. Therefore, do not create repository folders for generated drafts, temporary images, intermediate versions, or reference/model-sheet archives by default.
+
+- Save only approved, final, production-ready exports into `public/assets/`, grouped by simple category folders such as `characters/`, `objects/`, `environments/`, `backgrounds/`, `diagrams/`, `effects/`, and `audio/`.
+- Use clear descriptive filenames (for example `researcher.png`, `cathedral-interior.png`, `gothic-arch-diagram.svg`). Avoid deeply nested IDs/version directories unless the user explicitly requests them or a concrete technical need requires them.
+- Do not create `project/assets/references/`, `generated/temp/`, `v001/` or similar intermediate folder trees by default.
+- Do not save every generated variation or model sheet into the repository. Google Flow is the workspace for prompt iteration and revisions.
+- Generate a model sheet only when it is useful for consistency. Keep it in Google Flow; export it into the repository only if it is itself used by the final video.
+- If an asset needs multiple layers or cutouts, save only the approved production files needed by Remotion, using clear filenames in the relevant category folder.
+- The asset inventory should record final filename, category, production method, source/license where relevant, and scene usage. Keep the inventory lightweight; do not invent a separate archive structure.
+- Remotion reads files under `public/` through `staticFile()`. Example: `staticFile("assets/objects/cathedral-interior.png")`.
