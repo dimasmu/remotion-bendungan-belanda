@@ -32,7 +32,7 @@ const BoilerplateVideo: React.FC = () => (
   </div>
 );
 
-export const RemotionCompositions: React.FC = () => (
+export const RemotionRoot: React.FC = () => (
   <Composition
     id="BoilerplateVideo"
     component={BoilerplateVideo}
