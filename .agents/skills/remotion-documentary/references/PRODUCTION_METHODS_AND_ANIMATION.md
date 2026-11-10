@@ -128,3 +128,16 @@ Add these fields to each asset record when relevant:
 | Integration path | Final location used by Remotion |
 | QA status | Pending / approved / needs revision |
 
+
+---
+
+## Repository handoff policy: final exports only
+
+Google Flow is the user's workspace for prompt iteration, revisions and visual approval. This repository stores only the approved production outputs used by the Remotion project.
+
+Use simple category paths under `public/assets/` and descriptive filenames. Example:
+- `public/assets/characters/researcher.png`
+- `public/assets/objects/cathedral-interior.png`
+- `public/assets/diagrams/gothic-arch-construction.svg`
+
+Do not create draft/temp/reference/version folders by default. Keep generated alternatives and model sheets in Google Flow; export a model sheet only when it is intentionally part of the final video or the user requests it. This overrides older examples in this guide that suggest storing all source references or generated iterations in the repository.
