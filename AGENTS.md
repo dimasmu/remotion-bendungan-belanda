@@ -50,7 +50,7 @@ For every new video:
 - Declare and approve a project color palette with named colors and exact HEX values in `project/style/PALETTE.md` before creating character prompts.
 - Use the approved style board and the same approved palette across all character prompts.
 - Create a character inventory with a unique Character ID for each recurring character.
-- Generate one separate prompt and one separate canonical model sheet per character. If there are three characters, there must be three prompts and three separate character sheets. Never combine them into one group sheet.
+- Generate a separate prompt for each asset that needs image generation. Character/object model sheets are optional and should be created only when they materially help consistency; keep them in Google Flow unless they are used in the final video.
 - Each individual character sheet can show multiple views/poses of that same character in a clean, evenly spaced, non-overlapping production-sheet layout. Keep the full character visible.
 - Keep model sheets and image variations in Google Flow. Export only final isolated assets needed by the actual Remotion scenes.
 - Read `.agents/skills/remotion-documentary/references/CHARACTER_MODEL_GUIDE.md` and `IMAGE_GENERATION_WORKFLOW.md` before preparing character prompts.
