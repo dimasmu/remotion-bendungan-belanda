@@ -518,3 +518,14 @@ One standalone sheet for [CHAR-ID], saved to:
 project/assets/references/characters/[CHAR-ID]/v[VERSION]/[CHAR-ID]_model-sheet.png
 ~~~
 
+
+
+---
+
+## Dynamic asset count and style guide lookup (supersedes fixed-count examples)
+
+Never assume a fixed number of characters, objects or prompts. Determine the exact scope from the approved script, scene breakdown and storyboard. Read `references/ASSET_PLANNING_GUIDE.md`, create a deduplicated inventory, and generate prompts only for items that need new independent assets. It is valid for a project to require zero character prompts.
+
+For every selected visual style, read its dedicated specification under `references/styles/` before preparing prompts. The dedicated guide is the authority for how that style's characters (if any), objects, environments, materials, camera and animation are constructed.
+
+Generate one prompt per independent asset requiring separate generation. A character prompt produces a character-only sheet; an object prompt produces an object-only sheet or coherent assembly; an environment prompt produces an environment reference. A single sheet may show multiple views/poses of its one subject. Do not merge unrelated subjects.
