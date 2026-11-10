@@ -1,5 +1,7 @@
 import React from "react";
 import { Composition } from "remotion";
+import { EnigmaShorts } from "./compositions/EnigmaShorts";
+import { DURATION_IN_FRAMES as ENIGMA_DURATION, FPS as ENIGMA_FPS, WIDTH as ENIGMA_WIDTH, HEIGHT as ENIGMA_HEIGHT } from "./data/enigma";
 
 const WIDTH = 1920;
 const HEIGHT = 1080;
@@ -33,12 +35,22 @@ const BoilerplateVideo: React.FC = () => (
 );
 
 export const RemotionRoot: React.FC = () => (
-  <Composition
-    id="BoilerplateVideo"
-    component={BoilerplateVideo}
-    durationInFrames={DURATION_IN_FRAMES}
-    fps={FPS}
-    width={WIDTH}
-    height={HEIGHT}
-  />
+  <>
+    <Composition
+      id="BoilerplateVideo"
+      component={BoilerplateVideo}
+      durationInFrames={DURATION_IN_FRAMES}
+      fps={FPS}
+      width={WIDTH}
+      height={HEIGHT}
+    />
+    <Composition
+      id="EnigmaShorts"
+      component={EnigmaShorts}
+      durationInFrames={ENIGMA_DURATION}
+      fps={ENIGMA_FPS}
+      width={ENIGMA_WIDTH}
+      height={ENIGMA_HEIGHT}
+    />
+  </>
 );
