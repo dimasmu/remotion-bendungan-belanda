@@ -132,3 +132,81 @@ Supporting references go beside it. Production-ready cutouts/sprite frames used 
 \`public/assets/characters/[CHAR-ID]/\`
 
 Do not mix reference/model-sheet images with production-ready assets. Read IMAGE_GENERATION_WORKFLOW.md for approval gates and registry rules.
+
+
+---
+
+## Character-isolated asset sheets (mandatory for multi-character projects)
+
+The reference-sheet layout should resemble a clean production asset/model sheet: multiple clearly separated views and poses arranged on one canvas, with consistent scale, spacing and a plain uncluttered background. However, **never put different named characters together in one generated character prompt or one character sheet**.
+
+### One character = one independent prompt and one independent output
+
+First create a character inventory and assign stable IDs. Example:
+
+| Character ID | Character | Separate generation |
+| --- | --- | --- |
+| CHAR-001 | Dog companion | Prompt 01 → its own sheet/image |
+| CHAR-002 | Main explorer | Prompt 02 → its own sheet/image |
+| CHAR-003 | Supporting guide | Prompt 03 → its own sheet/image |
+
+If a project has N recurring characters, generate N separate character prompts and N separate canonical character sheets. Do not use one group prompt that asks the image model to draw all N characters together. This applies even when the characters appear in the same story or scene.
+
+Each character sheet may contain several views/poses of that **same character only**:
+- Front, three-quarter, side and back turnaround views.
+- A compact expression row (neutral, happy, concerned, surprised, angry, as relevant).
+- A compact action-pose row (idle, walk, run, point, hold/operate a story prop, as relevant).
+- Small isolated prop/accessory callouts belonging only to that character.
+- A small palette/material swatch strip.
+
+Arrange each view as a distinct, non-overlapping figure with generous whitespace. Keep the character fully visible; do not crop ears, hats, feet, tails, hands or props. Use a plain, neutral, consistent background. Avoid decorative story environments, panels full of text, extra characters and overlapping poses.
+
+### Separate character sheets from individual production assets
+
+The canonical model sheet is a reference document. For actual animation, generate/export separate transparent assets for the individual poses, body parts or props needed by the chosen rig/cut-out workflow. Give every production asset a stable filename. Do not expect Remotion to extract isolated sprites reliably from a composite model sheet.
+
+Suggested per-character files:
+- `[CHAR-ID]_model-sheet.png` — one character's complete reference sheet.
+- `[CHAR-ID]_expressions.png` — optional expression sheet for the same character.
+- `[CHAR-ID]_action-poses.png` — optional action poses for the same character.
+- `[CHAR-ID]_idle.png`, `[CHAR-ID]_walk-01.png`, etc. — isolated transparent production poses/sprites when needed.
+
+### Per-character prompt template
+
+~~~text
+Create ONE CHARACTER'S PRODUCTION MODEL SHEET. This prompt is for exactly one character, not a group.
+
+PROJECT: [project title]
+CHARACTER ID: [CHAR-001]
+CHARACTER NAME: [one character name]
+ROLE: [story role]
+APPROVED STYLE: [style ID and version]
+APPROVED PALETTE: [exact palette names and HEX values from PALETTE.md]
+APPROVED STYLE REFERENCE: use the attached approved style board as a strict visual guide.
+CHARACTER DESIGN: [locked silhouette, proportions, face, clothing/fur, colors, materials and distinguishing features]
+SIGNATURE PROPS: [only props assigned to this character]
+
+LAYOUT:
+Create a clean, organized model-sheet layout on a plain neutral background. Show this same character in separate, evenly spaced, non-overlapping positions:
+1. Front view, neutral standing pose.
+2. Three-quarter view.
+3. Side view.
+4. Back view.
+5. [selected expressions] in a small expression row.
+6. [selected action poses] in a small action row.
+7. Small isolated callouts for this character's signature accessories/props.
+8. Small color/material swatches matching the approved palette.
+
+CONSISTENCY:
+Every view must be recognizably the exact same character. Preserve head/body proportions, silhouette, markings, clothing, accessories, colors and line weight. Keep scale consistent between views. Make all body parts and props fully visible.
+
+STRICT EXCLUSIONS:
+No second character, no crowd, no character lineup, no interaction scene, no storyboard, no environment, no scenery, no title, no captions, no labels, no watermark, and no unrelated props. Do not redesign the approved style or add colors outside the palette.
+
+OUTPUT:
+One image containing only this character's organized reference sheet.
+Save as [CHAR-ID]_model-sheet.png in:
+project/assets/references/characters/[CHAR-ID]/v[VERSION]/
+~~~
+
+Repeat this template as a separate prompt for every Character ID. Replace every character-specific field; do not combine prompts.
