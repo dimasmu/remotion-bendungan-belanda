@@ -603,3 +603,21 @@ Do not copy a completed video's code or assets back into the boilerplate merely 
 - Never commit topic-specific work to `feat/template-remotion`.
 - Never merge into `feat/template-remotion` or `main` without explicit user approval.
 - Report the project branch name, base branch, and base commit when starting implementation.
+
+
+---
+
+## Visual identity, palette and isolated character assets
+
+For every new project, follow this order before scene production:
+
+1. Select and approve the visual style from `references/VISUAL_STYLE_LIBRARY.md`. Detailed Documentary Stickman (STYLE-01) is an available style option.
+2. Declare the visual identity: style ID/version, shape language, line weight, proportions, materials and rendering rules.
+3. Create `project/style/PALETTE.md` with named colors and exact HEX values. Include background, outlines, character base colors, clothing/skin/fur/hair, accents, shadows and semantic colors as needed. Obtain user approval before image generation.
+4. Create the style board and style test using only the approved palette.
+5. Inventory recurring characters and assign a unique Character ID to each.
+6. Create exactly one independent image-generation prompt per character. Each prompt must generate a sheet for one character only. Never combine multiple characters in one prompt or sheet.
+7. Each character sheet may show that same character in separate turnaround views, expressions, action poses and accessory callouts, arranged cleanly with no overlaps or cropping.
+8. Approve each canonical character sheet. Generate isolated transparent poses/sprites or rig parts separately for Remotion production when required.
+
+Follow `references/CHARACTER_MODEL_GUIDE.md` and `references/IMAGE_GENERATION_WORKFLOW.md` exactly. A composite model sheet is a reference document, not automatically a render-ready sprite atlas.
