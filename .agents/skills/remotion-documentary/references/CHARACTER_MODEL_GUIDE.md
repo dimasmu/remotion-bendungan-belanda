@@ -210,3 +210,16 @@ project/assets/references/characters/[CHAR-ID]/v[VERSION]/
 ~~~
 
 Repeat this template as a separate prompt for every Character ID. Replace every character-specific field; do not combine prompts.
+
+
+---
+
+## Dynamic scope — no fixed character or object count
+
+The number of characters and objects is determined by the approved story and scene breakdown. There is no default count and no requirement that every project contain characters. Some projects may need zero characters; others may need one, two, or many.
+
+Before assigning IDs or writing prompts, read `ASSET_PLANNING_GUIDE.md` and identify only recurring or visually important subjects. Do not create a character sheet for every background extra. Use reusable crowd variants or procedural silhouettes when appropriate.
+
+For each independently designed recurring character, create one separate character prompt and one canonical sheet. For objects, machines, vehicles, locations and diagrams, use the corresponding asset category and generate separate prompts only where a dedicated reference is useful. One sheet may contain multiple views of the same subject, never unrelated subjects.
+
+The selected style's dedicated specification under `references/styles/` determines the character proportions, face grammar, materials, linework and presentation. The generic rules in this guide do not override a selected style specification.
