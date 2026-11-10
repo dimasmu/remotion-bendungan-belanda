@@ -1,20 +1,43 @@
 # STYLE-04 — PS2 Style
 
-## Visual identity
-A nostalgic early-2000s console 3D look inspired by the visual constraints of the PlayStation 2 era. It should feel like a coherent game world, not merely a low-poly model with a retro filter.
+## Reference reading
+The first reference depicts a red bus in a stylized early-console 3D city. The bus has simple angular geometry, the buildings are tall blocky forms with repeated windows, and the road/environment has visible chunky texture. The bus is staged as a game-world object, with a slightly exaggerated, nostalgic real-time-render feel. Do not treat this as generic modern low-poly art.
 
-## Construction rules
-- Use low-to-mid polygon geometry, readable silhouettes and era-appropriate proportions.
-- Materials use modest texture resolution, visible texture character and restrained specular response.
-- Use vertex-lit or simple baked-lighting cues, fog/haze and controlled shadow detail where appropriate.
-- Lock texture sharpness, polygon density, color grading, camera lens and environment scale.
-- Characters, vehicles and architecture must share the same era-specific rendering treatment.
+## Visual signature
+- Early-2000s console-era 3D game aesthetic.
+- Angular, simplified geometry with visible facets and relatively low polygon density.
+- Repeating or modest-resolution textures; surfaces may look slightly coarse rather than physically perfect.
+- Stylized city architecture, simple road geometry and chunky environmental details.
+- Strong red bus against muted grey/brown/purple city tones.
+- Slightly game-like lighting and shading rather than modern photoreal path tracing.
 
-## Camera and motion
-Use game-camera language: establishing wides, tracking shots, controlled orbit, follow camera and deliberate cutscene framing. Motion may be slightly mechanical or game-like, but must remain smooth enough for documentary clarity. Keep model scale and camera perspective consistent across shots.
+## Geometry and materials
+- Keep bus body planes simple, with angular edges and limited small details.
+- Wheels, windows, bumpers and lights should be readable but not hyper-detailed.
+- Buildings can use repeated window textures and large geometric masses.
+- Use restrained specular highlights and simple material response.
+- Lock polygon density and texture sharpness across all assets; do not mix ultra-detailed hero objects with crude backgrounds.
 
-## Asset prompt requirements
-Specify early-2000s console game aesthetic, polygon density, texture resolution/behavior, lighting, fog, camera and era. Request complete subjects and consistent views. Do not ask for exact copyrighted game characters or logos; create original designs with the broad era aesthetic.
+## Palette and lighting
+- Sample frame colors before assigning HEX values. The shown direction uses a saturated red hero bus, subdued urban greys/browns, muted purple/blue shadows and warm window lights.
+- Lighting is readable and directional but not glossy modern CGI.
+- Fog or distance haze can help depth, but should remain subtle and game-like.
+- Keep contrast high enough for the red bus to remain the focal point.
 
-## Avoid
-Modern physically based photorealism, ultra-dense geometry, modern cinematic skin shading, random pixelation overlays and mismatched asset fidelity.
+## Camera and layout
+- Use game-world camera framing: low/eye-level street view, side tracking or a modest three-quarter view.
+- Keep road plane, vehicle scale and building perspective coherent.
+- Camera may follow the vehicle as if in a third-person or cutscene shot.
+- Avoid extreme wide-angle distortion unless present in the chosen reference shot.
+
+## Motion language
+- Bus movement should include wheel rotation, mild suspension bounce and grounded contact/shadow.
+- Camera tracking and parallax should feel like a game camera.
+- Environmental motion may include simple passing lights, road movement or small dust/impact effects.
+- Use controlled, slightly mechanical game animation rather than highly fluid cinematic motion.
+
+## Asset and prompt requirements
+Describe console-era game render, polygon budget, texture resolution/roughness, bus proportions, city architecture, camera angle and lighting. Request consistent front/side/three-quarter views where needed. Keep all generated assets within one chosen retro-game rendering target.
+
+## Do not
+Do not use modern photoreal PBR, ultra-smooth surfaces, dense microgeometry, voxel/block-toy construction, pixel-art sprites, exaggerated anime proportions or a generic faceted low-poly diorama.
