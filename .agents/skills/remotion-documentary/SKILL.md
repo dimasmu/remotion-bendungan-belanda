@@ -640,3 +640,22 @@ Before preparing any image-generation prompt:
 When a visual style is selected, read its dedicated specification in `references/styles/` as well as `references/VISUAL_STYLE_LIBRARY.md`. The dedicated style guide defines the visual construction rules. STYLE-01 stickman rules apply only when STYLE-01 is selected; do not transfer them to other styles.
 
 Generate one independent prompt per independent character or asset requiring separate generation. A character sheet contains one character only; an object sheet contains one object or coherent assembly only. Do not combine unrelated entities. Views, poses and callouts inside one sheet must all belong to that same subject.
+
+
+---
+
+# Separate visual style, asset production method and animation method
+
+These are independent planning dimensions. The selected visual style controls the final appearance, but it does not force the production tool for every asset.
+
+Before creating assets or implementing scenes, read `references/PRODUCTION_METHODS_AND_ANIMATION.md`. For every scene and asset:
+1. Select the visual style and read its dedicated style specification.
+2. Determine the asset requirements from the script and storyboard.
+3. Choose the most suitable production method independently for each asset: AI still, AI video, Blender/3D, SVG/React/Canvas procedural graphics, licensed stock, hybrid, reuse or no asset.
+4. Choose how the result will be animated in Remotion: still-image transforms, 2D layers/parallax, SVG motion, pre-rendered video/image sequence, 3D render compositing or procedural React animation.
+5. Record output format, alpha/layer requirements, source/license and integration path in the asset registry.
+6. Keep all methods visually coherent with the approved style guide and palette.
+
+Remotion can compose high-resolution still images, video, image sequences, SVG/vector graphics, transparent renders and React-generated graphics. It can animate timing, transforms, layers, masks, paths, typography and transitions. It does not generate source images by itself and is not a substitute for Blender's modeling, rigging or 3D simulation. Use a suitable external production tool where needed, then integrate its output.
+
+A scene may legitimately combine a photorealistic background plate, detailed close-up image, Blender-rendered reconstruction, SVG technical overlay and Remotion typography. This is an example of a hybrid approach, not a mandatory template.
