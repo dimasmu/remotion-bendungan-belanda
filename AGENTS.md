@@ -19,9 +19,26 @@ For every new documentary project or any Remotion composition/scene change:
 9. Treat a commit as source-control success only. Never claim build, render or visual QA unless actually performed.
 10. Do not merge iterative work into `main` without explicit approval.
 
+## Mandatory Git branch workflow
 
-11. After visual-style approval, read \`.agents/skills/remotion-documentary/references/IMAGE_GENERATION_WORKFLOW.md\` and provide the user with a style-board and style-test-frame prompt.
+The reusable boilerplate branch is `feat/template-remotion`. It is the clean source template and must not receive video-specific implementation.
+
+For every new video:
+
+1. Complete the planning and approval stages first. Planning includes the approved topic/title, platform and duration, aspect ratio/resolution, visual style, character/object direction, research and narration, timecoded breakdown, and storyboard.
+2. Do not create the video project branch during planning. Create it only after the user approves the plan and the project is ready to enter the build/implementation phase.
+3. Create a new branch from `feat/template-remotion` (never from an old video branch and never from `main` unless the user explicitly changes this policy).
+4. Use the naming format `feat/<video-title-slug>`, in lowercase kebab-case. Example: `feat/why-netherlands-does-not-sink`.
+5. Perform all project-specific code, compositions, scenes, assets, scripts, production documents, and build changes on that video's branch.
+6. Keep `feat/template-remotion` generic and reusable. Do not add a finished video's composition, narration, topic-specific assets, or project-specific dependencies to it.
+7. If a project branch already exists, inspect it and ask before reusing or replacing it. Never overwrite or force-reset an existing project branch automatically.
+8. Do not merge a project branch into `feat/template-remotion` or `main` without the user's explicit approval.
+9. Before creating the branch, verify that `feat/template-remotion` exists and use its current HEAD as the branch base. Report the new branch name and base commit to the user.
+
+## Image generation and asset workflow
+
+11. After visual-style approval, read `.agents/skills/remotion-documentary/references/IMAGE_GENERATION_WORKFLOW.md` and provide the user with a style-board and style-test-frame prompt.
 12. After character/object model approval, provide the corresponding turnaround/model-sheet, expression and action-pose prompts. Ask for approval before using them in scenes.
-13. Store character reference/model sheets in \`project/assets/references/characters/[CHAR-ID]/v[VERSION]/\`; store only approved render-ready cutouts and sprite frames in \`public/assets/characters/[CHAR-ID]/\`.
-14. Store style reference boards in \`project/assets/references/visual-style/[STYLE-ID]-v[VERSION]/\` and object references in \`project/assets/references/objects/[OBJ-ID]/v[VERSION]/\`. Keep source prompts and approval metadata beside them.
+13. Store character reference/model sheets in `project/assets/references/characters/[CHAR-ID]/v[VERSION]/`; store only approved render-ready cutouts and sprite frames in `public/assets/characters/[CHAR-ID]/`.
+14. Store style reference boards in `project/assets/references/visual-style/[STYLE-ID]-v[VERSION]/` and object references in `project/assets/references/objects/[OBJ-ID]/v[VERSION]/`. Keep source prompts and approval metadata beside them.
 15. Do not mix AI reference sheets with assets actually used by Remotion. Read IMAGE_GENERATION_WORKFLOW.md for exact prompts, naming and approval gates.
