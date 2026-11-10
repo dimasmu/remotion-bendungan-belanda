@@ -88,3 +88,16 @@ For a character, create one character-only prompt and sheet. For an object, crea
 ## Approval and change control
 
 The agent must show the proposed asset inventory and prompt count before generation. Do not invent assets to fill a quota. Do not generate assets for every beat if an existing asset or procedural graphic is sufficient. Any new asset discovered during build must be added to the registry with a reason and user approval when it changes scope or generation cost.
+
+
+---
+
+## Production method and Remotion integration are per-asset decisions
+
+For every inventory item, choose a production method and an animation/integration method independently. Read `PRODUCTION_METHODS_AND_ANIMATION.md` before finalizing the inventory.
+
+Allowed production methods include AI-generated still, AI-generated video, Blender/3D, SVG/React/Canvas procedural graphics, licensed stock media, hybrid compositing, reuse, or no new asset. Do not assume all assets should be image-generated.
+
+Record at minimum: visual style ID, production method, output format, transparency/layer requirements, animation method, source/license and Remotion integration path.
+
+A high-detail image is a valid Remotion asset. So are video plates, image sequences, SVGs, transparent renders and procedural React graphics. Choose based on the shot's requirements, not on a low-poly/stickman-only assumption.
