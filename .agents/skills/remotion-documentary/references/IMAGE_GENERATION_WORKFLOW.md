@@ -529,3 +529,14 @@ Never assume a fixed number of characters, objects or prompts. Determine the exa
 For every selected visual style, read its dedicated specification under `references/styles/` before preparing prompts. The dedicated guide is the authority for how that style's characters (if any), objects, environments, materials, camera and animation are constructed.
 
 Generate one prompt per independent asset requiring separate generation. A character prompt produces a character-only sheet; an object prompt produces an object-only sheet or coherent assembly; an environment prompt produces an environment reference. A single sheet may show multiple views/poses of its one subject. Do not merge unrelated subjects.
+
+
+---
+
+## Image generation is one production option, not the whole asset workflow
+
+This document covers image-generation prompts only. It must not imply that every asset should be generated as a still image. First consult `PRODUCTION_METHODS_AND_ANIMATION.md` and decide whether each item is better produced as an AI still, AI video, Blender render, SVG/React/Canvas graphic, licensed stock asset, hybrid, reuse or no asset.
+
+Only create image prompts for assets whose approved production method is image generation. If the shot needs controlled 3D camera movement, mechanical cutaways or repeatable spatial views, consider Blender. If it needs precise diagrams, labels or animated lines, consider SVG/React. If it needs complex temporal motion, consider AI video or pre-rendered footage.
+
+The final source must still conform to the selected visual style guide and be integrated into Remotion using the appropriate method.
