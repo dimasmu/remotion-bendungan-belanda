@@ -46,7 +46,7 @@ For every new video:
 
 ## Visual style, palette and character asset rules
 
-- Before image generation, select and approve a visual style. STYLE-01 Detailed Documentary Stickman is an available option; do not force it when another style is selected.
+- Before image generation, select and approve one of the 10 reference-based styles in `references/VISUAL_STYLE_LIBRARY.md`. Do not default to or retain the superseded style catalogue.
 - Declare and approve a project color palette with named colors and exact HEX values in `project/style/PALETTE.md` before creating character prompts.
 - Use the approved style board and the same approved palette across all character prompts.
 - Create a character inventory with a unique Character ID for each recurring character.
