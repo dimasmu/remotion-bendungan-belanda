@@ -621,3 +621,22 @@ For every new project, follow this order before scene production:
 8. Approve each canonical character sheet. Generate isolated transparent poses/sprites or rig parts separately for Remotion production when required.
 
 Follow `references/CHARACTER_MODEL_GUIDE.md` and `references/IMAGE_GENERATION_WORKFLOW.md` exactly. A composite model sheet is a reference document, not automatically a render-ready sprite atlas.
+
+
+---
+
+# Dynamic asset planning and style-specific visual specifications
+
+Asset scope is derived from the actual story. There is no fixed number of characters, props, objects, environments, vehicles, diagrams or generated images.
+
+Before preparing any image-generation prompt:
+1. Read `references/ASSET_PLANNING_GUIDE.md`.
+2. Inspect the approved script, scene breakdown and storyboard.
+3. Build a deduplicated asset inventory with stable IDs and usage by scene/beat.
+4. Classify each item as reference sheet, isolated production asset, procedural Remotion graphic, reuse or no asset needed.
+5. Calculate and report the actual prompt count by category. Zero characters is valid when the story does not need characters.
+6. Obtain approval of the inventory when it changes scope or generation cost.
+
+When a visual style is selected, read its dedicated specification in `references/styles/` as well as `references/VISUAL_STYLE_LIBRARY.md`. The dedicated style guide defines the visual construction rules. STYLE-01 stickman rules apply only when STYLE-01 is selected; do not transfer them to other styles.
+
+Generate one independent prompt per independent character or asset requiring separate generation. A character sheet contains one character only; an object sheet contains one object or coherent assembly only. Do not combine unrelated entities. Views, poses and callouts inside one sheet must all belong to that same subject.
