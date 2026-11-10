@@ -544,3 +544,62 @@ This is mandatory after style selection and character/object approval. Read \`re
 - Keep the full prompts, versions, approval status and asset registry in the project.
 
 Do not code a recurring character before its model sheet is approved. Do not use an unapproved prompt-generation experiment in the final composition.
+
+
+---
+
+# Git Branch Isolation for New Video Projects
+
+This repository is a reusable boilerplate, not the working branch for individual videos.
+
+## Branch roles
+
+- **Boilerplate source:** `feat/template-remotion`. Keep this branch generic, stable, and reusable.
+- **Video project:** one dedicated branch per video, named `feat/<video-title-slug>`.
+- **Default branch:** `main` is not the starting point for new video work under the current workflow.
+
+## When to create a project branch
+
+Do not create a project branch at the beginning of planning. First complete and obtain the user's approval for the production plan:
+
+1. Topic and working title.
+2. Platform, target duration, aspect ratio, resolution, and FPS.
+3. Visual style and style guide direction.
+4. Character/object model direction and approvals where applicable.
+5. Research brief and approved narration.
+6. Timecoded scene/beat breakdown.
+7. Storyboard and motion plan.
+
+Only after the user approves the plan and authorizes moving into build/implementation should the agent create the project branch.
+
+## Branch creation rules
+
+1. Verify the current repository and confirm that `feat/template-remotion` exists.
+2. Read the current HEAD SHA of `feat/template-remotion`.
+3. Create `feat/<video-title-slug>` directly from that branch's current HEAD.
+4. Use lowercase kebab-case for the slug. Example: `feat/why-netherlands-does-not-sink`.
+5. If the proposed branch already exists, inspect it and ask the user whether to continue on it. Never force-reset, overwrite, or silently reuse it.
+6. Confirm the created branch and its base commit before making project files.
+
+## What belongs where
+
+**Keep on `feat/template-remotion`:**
+- Reusable Remotion configuration and starter composition.
+- Generic components, utilities, styles, and folder conventions.
+- Production skills, reference guides, templates, and general documentation.
+- Generic fixes that improve the starter for future videos.
+
+**Keep on a video project branch:**
+- Topic-specific compositions and scenes.
+- Video-specific scripts, research, storyboards, and production briefs.
+- Character/object designs and approved assets for that video.
+- Topic-specific dependencies, data, graphics, and rendering configuration.
+
+Do not copy a completed video's code or assets back into the boilerplate merely because they were developed from it. If a genuinely reusable improvement is discovered, propose it separately and wait for approval before changing the boilerplate.
+
+## Isolation and merge policy
+
+- All build, implementation, iteration, and QA commits for a video stay on its project branch.
+- Never commit topic-specific work to `feat/template-remotion`.
+- Never merge into `feat/template-remotion` or `main` without explicit user approval.
+- Report the project branch name, base branch, and base commit when starting implementation.
