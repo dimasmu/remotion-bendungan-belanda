@@ -659,3 +659,23 @@ Before creating assets or implementing scenes, read `references/PRODUCTION_METHO
 Remotion can compose high-resolution still images, video, image sequences, SVG/vector graphics, transparent renders and React-generated graphics. It can animate timing, transforms, layers, masks, paths, typography and transitions. It does not generate source images by itself and is not a substitute for Blender's modeling, rigging or 3D simulation. Use a suitable external production tool where needed, then integrate its output.
 
 A scene may legitimately combine a photorealistic background plate, detailed close-up image, Blender-rendered reconstruction, SVG technical overlay and Remotion typography. This is an example of a hybrid approach, not a mandatory template.
+
+---
+
+# Repository asset storage policy — approved final exports only
+
+The user performs image generation revisions and iterations in Google Flow, not inside this repository. The repository is the production handoff location, not the image-iteration archive.
+
+Default workflow:
+1. Create and revise prompts/images in Google Flow.
+2. Approve the final result in Google Flow.
+3. Export only the approved production-ready asset into `public/assets/<category>/`.
+4. Reference that file from Remotion using `staticFile("assets/<category>/<filename>")`.
+
+Use simple category folders: `characters/`, `objects/`, `environments/`, `backgrounds/`, `diagrams/`, `effects/`, `audio/`. Add a category only when the project needs it.
+
+Do not create draft, temp, generated, reference, model-sheet archive, or version folders in the repository by default. Do not copy every iteration from Google Flow into the repo. Use descriptive filenames rather than deep ID/version paths.
+
+Model sheets and visual references remain in Google Flow unless a particular sheet is deliberately used in the final video. A model sheet is optional, not a mandatory step for every character/object. If a layered deliverable is needed, store only the final approved layers required by Remotion in the relevant category folder.
+
+This storage policy supersedes older examples in this skill that show `project/assets/references/`, `project/assets/generated/temp/`, `v001/` or other nested reference/version structures.
