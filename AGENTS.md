@@ -89,3 +89,42 @@ The user's image revision and iteration workflow happens in Google Flow, outside
 - If an asset needs multiple layers or cutouts, save only the approved production files needed by Remotion, using clear filenames in the relevant category folder.
 - The asset inventory should record final filename, category, production method, source/license where relevant, and scene usage. Keep the inventory lightweight; do not invent a separate archive structure.
 - Remotion reads files under `public/` through `staticFile()`. Example: `staticFile("assets/objects/cathedral-interior.png")`.
+
+
+## Global composition architecture — mandatory default
+
+For every new documentary project, use the hybrid scene-composition architecture defined in `.agents/skills/remotion-documentary/references/COMPOSITION_ARCHITECTURE.md`:
+
+- Register every scene as its own standalone Remotion Composition in `src/Root.tsx`, so it can be selected, previewed, rendered and QA'd independently in Studio.
+- Register one separate master Composition for the complete documentary.
+- Reuse the same scene React component in its standalone Composition and in the master; do not duplicate scene implementation.
+- Store scene order, IDs, durations and start frames in one shared timeline configuration. Add validation for duration, ordering and total master length.
+- Keep FPS, dimensions, fonts, palette and shared design tokens consistent between standalone scenes and the master.
+- Make scene animation work from local frame 0 in both contexts. Keep global timeline calculations explicit and avoid double-offsetting frames.
+- Avoid duplicate backgrounds, progress rails, overlays, narration, music or SFX when scenes are assembled into the master.
+- QA and render each scene independently, then QA and render the complete master.
+
+A single Composition with multiple Sequences is an exception only for small one-off work or when the user explicitly chooses it. Document the exception. Creating multiple scene TSX files alone does not satisfy the requirement: standalone scene Compositions must be registered in Studio.
+
+## Global workflow and knowledge ownership
+
+`feat/template-remotion` is the canonical home for reusable rules and skills. Whenever the user approves a new general workflow rule, reusable architecture, skill, prompt standard, QA gate, template, or production convention:
+
+1. Add or update the appropriate generic reference/skill/template on `feat/template-remotion`.
+2. Update this `AGENTS.md` when the rule is mandatory for future agents/projects.
+3. Update the main documentary skill when the rule changes the standard production workflow.
+4. Keep the wording project-agnostic. Never place Enigma-specific scene names, story facts, frame ranges, assets or implementation code in the reusable template.
+5. Commit and push the reusable change to `feat/template-remotion`.
+6. Project branches consume the update by merging the template branch into themselves; never copy project-specific code back into the template.
+
+Project-specific scripts, research, storyboards, scene code, assets, durations and facts remain only on their own `feat/<video-title-slug>` branches.
+
+When starting a new project, branch from the latest `feat/template-remotion`. When an existing project needs a later global improvement, sync it deliberately:
+
+```bash
+git switch feat/<video-title-slug>
+git fetch origin
+git merge origin/feat/template-remotion
+```
+
+Do not merge a project branch into the template or `main` without explicit user approval.

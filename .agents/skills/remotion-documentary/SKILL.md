@@ -679,3 +679,48 @@ Do not create draft, temp, generated, reference, model-sheet archive, or version
 Model sheets and visual references remain in Google Flow unless a particular sheet is deliberately used in the final video. A model sheet is optional, not a mandatory step for every character/object. If a layered deliverable is needed, store only the final approved layers required by Remotion in the relevant category folder.
 
 This storage policy supersedes older examples in this skill that show `project/assets/references/`, `project/assets/generated/temp/`, `v001/` or other nested reference/version structures.
+
+
+---
+
+## Standard scene-composition architecture (mandatory)
+
+For new documentary projects, follow `references/COMPOSITION_ARCHITECTURE.md`. The default is a hybrid architecture:
+
+- One standalone registered Remotion Composition per scene.
+- One registered master Composition for the full documentary.
+- Shared scene React components reused by both standalone and master compositions.
+- One source of truth for scene IDs, order, durations and timeline offsets.
+- Shared project FPS, dimensions, fonts, palette, safe areas and design tokens.
+- Local-frame animation that behaves identically when previewed alone or inside the master.
+- Explicit ownership of backgrounds, global overlays, narration, music and sound effects to prevent duplication.
+- Independent scene preview/render/QA followed by full-master boundary, transition, audio and final-render QA.
+
+Do not assume that a separate TSX component appears as a separate item in Remotion Studio. Each standalone scene must be registered in `src/Root.tsx` with its own stable Composition ID. The master Composition must also be registered separately and assemble those same scene components in the approved order.
+
+A single Composition containing multiple Sequences is allowed only for a small one-off project or when the user explicitly asks for that simpler structure. Record the exception in the project documentation.
+
+Before implementation, read the architecture reference and inspect the installed Remotion version/types. Do not assume API support from a newer Remotion release.
+
+## Global rule and skill contribution workflow
+
+The reusable template branch `feat/template-remotion` is the canonical source of global production knowledge.
+
+Whenever the user approves a new reusable rule, skill, architecture pattern, QA requirement, prompt convention or template:
+1. Add/update the appropriate generic reference or skill on `feat/template-remotion`.
+2. Update repository `AGENTS.md` for mandatory agent behavior.
+3. Update this skill if the standard production workflow changes.
+4. Keep the content generic and independent of any one video project.
+5. Commit/push the template change before consuming it in project branches.
+
+Never place topic-specific research, scripts, scene code, frame ranges, assets or dependencies on the template branch.
+
+A new project must start from the latest template branch. To bring later global improvements into an existing project branch, merge the remote template branch into the project branch:
+
+```bash
+git switch feat/<video-title-slug>
+git fetch origin
+git merge origin/feat/template-remotion
+```
+
+Resolve conflicts while preserving project-specific work. Do not merge project branches back into the template or `main` without explicit user approval.
