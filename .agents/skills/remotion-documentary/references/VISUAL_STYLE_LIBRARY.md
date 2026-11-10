@@ -102,3 +102,45 @@ The pack must include:
 - Exact save path and filenames.
 
 The first image is a reusable project art-direction reference, not the final scene. Ask the user to approve the style board and test frame. Do not make character designs yet if the style is not approved.
+
+
+---
+
+## Mandatory palette declaration before character generation
+
+A project palette must be defined and approved **before writing any character-generation prompt**. Do not leave color decisions to the image model.
+
+After style selection, create `project/style/PALETTE.md` with:
+- Palette version and the selected style ID.
+- Primary/background colors with HEX values.
+- Character base colors and skin/fur/hair/clothing colors as applicable.
+- Accent/highlight colors.
+- Outline/ink color.
+- Shadow and neutral colors.
+- Semantic colors (warning, water, vegetation, metal, fire, etc.) only if the project needs them.
+- Usage ratios or rules (for example, background 60%, primary 30%, accent 10%).
+- Forbidden colors and contrast/readability notes.
+
+Present the palette as named swatches with exact HEX values and explain where each color is used. Ask the user to approve or revise it. Only the approved palette may be included in style-board, character-sheet, object-sheet and scene-asset prompts.
+
+### Stickman direction
+
+STYLE-01 is the **Detailed Documentary Stickman** option and is a first-class supported visual style, not a default forced on every project. When selected, lock:
+- Head shape and head-to-body ratio.
+- Eye, eyebrow and mouth construction and expression range.
+- Body/limb line weight, joint style and hand/foot design.
+- Clothing silhouette and accessory rules.
+- Outline color and thickness.
+- Flat fill, limited shading and texture treatment.
+- Character-specific palette assignments and shared environmental palette.
+
+Stickman characters must remain visually simple and readable, but may have distinct clothing, hats, tools, uniforms and props. Do not turn them into realistic human anatomy or change them into a different illustration style between shots.
+
+### Style approval order
+
+1. Select visual style.
+2. Propose and lock the project palette with HEX values.
+3. Generate and approve the style board/style test.
+4. Define the character inventory and individual character briefs.
+5. Generate one separate prompt and one separate sheet per character.
+6. Approve each character sheet before creating scene-specific production assets.
